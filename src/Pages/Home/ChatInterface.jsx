@@ -45,7 +45,7 @@ function ChatInterface() {
                     hover:to-indigo-100 transition-all duration-300 border border-purple-100
                     shadow-sm hover:shadow group"
                 >
-                  <span className="font-medium text-gray-700 group-hover:text-purple-700">
+                  <span className="font-semibold text-lg text-gray-700 group-hover:text-[#431D5A]">
                     {bot.name}
                   </span>
                   <img
@@ -63,9 +63,9 @@ function ChatInterface() {
               <img
                 src="https://www.shutterstock.com/image-photo/image-asian-boy-posing-on-600nw-2332205301.jpg"
                 alt="User Avatar"
-                className="h-12 w-12 rounded-xl object-cover shadow-sm"
+                className="h-12 w-12 rounded-full object-cover shadow-sm"
               />
-              <span className="font-medium text-gray-700">User Name</span>
+              <span className="font-medium text-gray-700">Al Mamud Bijoy</span>
               <ChevronDown size={20} className="text-gray-400" />
             </div>
           </div>
@@ -73,22 +73,22 @@ function ChatInterface() {
 
   {/* Input Area */}
   <div className="relative ">
-            <div className="relative bg-gradient-to-r from-purple-50 to-indigo-50 
-              rounded-xl flex items-center p-4 shadow-sm border border-purple-100 max-w-7xl mx-auto">
+            <div className="relative bg-[#7B549333]
+              rounded-xl flex items-center p-3 shadow-sm border border-purple-100 max-w-7xl mx-auto">
               <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Ask your question..."
-                className="w-full bg-transparent outline-none text-gray-700 
+                className="w-full bg-transparent outline-none text-[#431D5A] font-medium
                   placeholder-gray-400 px-2"
               />
-              <div className="flex items-center gap-3">
-                <button className="text-purple-500 hover:text-purple-700 
+              <div className="flex items-center space-x-8">
+                <button className="text-[#431D5A]  
                   transition-colors duration-200">
-                  <Mic size={22} />
+                  <Mic size={24} />
                 </button>
-                <button className="bg-purple-600 hover:bg-purple-700 text-white 
+                <button className="bg-[#431D5A] hover:bg-black/80 text-white 
                   p-2.5 rounded-lg transition-colors duration-200 flex items-center 
                   justify-center shadow-sm">
                   <Send size={20} />
