@@ -7,6 +7,7 @@ import OTPVerification from "../Pages/SignUP/OTPVerification";
 import ManageSubcription from "../Pages/ManageSubcription/ManageSubcription";
 import Help_Support from "../Pages/HelpSupport/Help_Support";
 import Profile from "../Pages/Profile/Profile"
+import Faq from "../Pages/Faq/Faq";
   
 export const router = createBrowserRouter([
     {
@@ -22,8 +23,12 @@ export const router = createBrowserRouter([
             element: <ManageSubcription/>
           },
           {
-            path: '/help&Support',
+            path: '/Support',
             element: <Help_Support/>
+          },
+          {
+            path: '/faq',
+            element: <Faq/>
           },
         
           {

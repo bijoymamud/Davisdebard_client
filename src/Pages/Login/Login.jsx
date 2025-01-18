@@ -19,9 +19,9 @@ export default function Login() {
       <div className="w-full max-w-2xl p-8 rounded-2xl py-32 ">
         <div className="space-y-6">
           <div className="space-y-2 text-start mb-10">
-            <h1 className="text-3xl font-bold text-black ">Hello, Welcome!</h1>
+            <h1 className="text-3xl font-bold text-black ">Use the Best AI</h1>
             <p className="text-[#3C3C3C] font-medium">
-              Please Enter Your Details Below to Continue
+            Please enter your details below
             </p>
           </div>
 

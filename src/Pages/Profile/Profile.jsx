@@ -1,10 +1,25 @@
-import { Camera, EyeOff, LockKeyhole, Mic, SquarePen } from 'lucide-react';
+import { Camera, ChevronLeft, EyeOff, LockKeyhole, Mic, SquarePen } from 'lucide-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  
+    const navigate = useNavigate()
   return (
-    <section>
-      <div className="flex flex-col items-center justify-center min-h-screen md:p-6 bg-gray-100">
+    <section className='bg-[#e1e4ed]'>
+
+
+<div className='pt-10'>
+<button
+ onClick={() => navigate(-1)} // Navigate back to the previous page
+ className="flex text-[#431D5A] hover:bg-[#431D5A] hover:text-white border border-[#431D5A] px-2 py-2 rounded-md ms-10 mx-auto"
+>
+ <ChevronLeft size={28} />
+ <h2 className="uppercase text-lg font-medium pr-2">Return</h2>
+</button> 
+</div>
+
+      <div className="flex flex-col items-center justify-center min-h-screen md:p-6">
         {/* Profile Section */}
         <div className="md:p-8 p-5 rounded-lg w-full xl:w-2/4">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">Profile</h2>
