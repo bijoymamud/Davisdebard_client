@@ -8,6 +8,7 @@ import ManageSubcription from "../Pages/ManageSubcription/ManageSubcription";
 import Help_Support from "../Pages/HelpSupport/Help_Support";
 import Profile from "../Pages/Profile/Profile"
 import Faq from "../Pages/Faq/Faq";
+import ChatHistory from "../Pages/Home/ChatHistory/ChatHistory";
   
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
           {
             path: '/userProfile',
             element: <Profile/>
+          },
+          {
+            path: '/chatHistory',
+            element: <ChatHistory/>
           }
       ]
     },

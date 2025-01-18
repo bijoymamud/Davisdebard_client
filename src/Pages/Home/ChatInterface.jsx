@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import axios from "axios";
 import { Mic, Send, Plus, Menu, CircleHelp } from "lucide-react";
@@ -328,4 +326,6 @@ function ChatInterface() {
 
 export default ChatInterface;
 
+
+// ----------------------perfect code without history---------------------
 
