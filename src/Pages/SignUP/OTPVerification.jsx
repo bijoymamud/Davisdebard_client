@@ -21,9 +21,9 @@ const OTPVerification = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen ">
       <div className="w-full max-w-md p-6 bg-white rounded-lg ">
-        <h2 className="text-[36px] font-semibold">OTP Verification</h2>
+        <h2 className="md:text-[36px] font-semibold">Use the Best AI – New Account Verification</h2>
         <p className="text-[16px] text-gray-600 mb-10">
-          Enter OTP Sent To <span className="text-[#431D5A] font-semibold">Bill****@Example.com</span>
+        Enter the code sent to <span className="text-[#431D5A] font-semibold">Bill****@Example.com</span>
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex justify-between">
@@ -61,7 +61,7 @@ const OTPVerification = () => {
               onClick={!otpSent ? handleButtonClick : undefined}
               className="w-full h-12 mt-5 text-white font-medium bg-[#431D5A] rounded-full hover:bg-[#2d103f] focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              {otpSent ? "Submit OTP" : "Get OTP"}
+              {otpSent ? "Enter Site" : "Get OTP"}
             </button>
           </div>
         </form>

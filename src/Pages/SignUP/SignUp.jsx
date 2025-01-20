@@ -22,7 +22,7 @@ export default function SignUp() {
           <div className="space-y-2 text-start mb-10">
             <h1 className="text-3xl font-bold text-black ">Create account</h1>
             <p className="text-[#3C3C3C] font-medium">
-            Enter the email address associated with your account. We'll send you an OTP to your email. 
+            Please enter information and click the button.  We will send an email with a verification code for you to enter.” 
             </p>
           </div>
 
@@ -109,14 +109,14 @@ export default function SignUp() {
           to="/OTPVerification">
           <button
               type="submit"
-              className="mt-5 w-full border-none py-3 text-sm font-medium text-white bg-[#431D5A] rounded-full hover:bg-[#2d103f] transition-colors uppercase"
+              className="mt-5 w-full border-none py-3 text-sm font-medium text-white bg-[#431D5A] rounded-full hover:bg-[#2d103f] transition-colors"
             >
-             sign up
+             Sign Up
             </button>
           </Link>
           </form>
 
-          <h1 className="font-medium text-center text-[#565656]">Already have an account ? <Link to="/login" className="text-blue-600 font-bold">LogIn</Link></h1>
+          <h1 className="font-medium text-center text-[#565656]">Already have an account? <Link to="/login" className="text-blue-600 font-bold">LogIn</Link></h1>
 
         </div>
       </div>

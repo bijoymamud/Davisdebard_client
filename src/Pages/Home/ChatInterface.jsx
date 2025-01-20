@@ -409,6 +409,8 @@ function ChatInterface() {
         bot.apiEndpoint,
         {
           input_text: userMessage,
+          // userINfo
+          // chatModel
         },
         {
           headers: {
@@ -564,17 +566,39 @@ function ChatInterface() {
                 </a>
               </li>
               <li>
-                <button
-                  onClick={() => document.getElementById("logout_modal").showModal()}
-                  className="flex items-center gap-2"
-                >
-                  <MdLogout className="text-xl" />
-                  <span className="text-lg font-semibold">Log out</span>
-                </button>
+              <button
+                onClick={() => document.getElementById("logout_modal").showModal()}
+                className="flex items-center gap-2" >
+                <MdLogout className="text-xl" />
+              <span className="text-lg font-semibold">Log out</span>
+             </button>
               </li>
             </ul>
           </div>
         </div>
+
+        {/* Modal Component */}
+ <dialog id="logout_modal" className="modal">
+   <div className="modal-box">
+     <p className="py-4">Leave Use the Best AI?</p>     
+     <div className="flex items-center justify-center gap-5">
+       <form method="dialog">         {/* Close button for the modal */}
+         <button className="btn bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">Cancel</button>
+      </form>
+       <button
+         className="btn bg-[#431D5A] hover:bg-[#431D5A] text-white"
+         onClick={() => {
+           // Perform logout action here (e.g., clear user session, redirect to login)
+           console.log("User logged out");
+           // Example: Redirect to login page
+          window.location.href = "/login";
+        }}
+       >
+        Log Out
+       </button>
+     </div>
+   </div>
+ </dialog>
 
         <div className="relative md:ms-[90px]">
           <div className="relative bg-[#7B549333] rounded-xl flex items-center p-3 shadow-sm border border-purple-100 w-[685px] mx-auto">
@@ -587,9 +611,6 @@ function ChatInterface() {
               className="w-full bg-transparent outline-none text-[#431D5A] font-medium placeholder-gray-400 px-2"
             />
             <div className="flex items-center space-x-8">
-              <button className="text-[#431D5A] transition-colors duration-200">
-                <Mic size={24} />
-              </button>
               <button
                 onClick={handleSendMessage}
                 className="bg-[#431D5A] hover:bg-black/80 text-white p-2.5 rounded-lg transition-colors duration-200 flex items-center justify-center shadow-sm"
