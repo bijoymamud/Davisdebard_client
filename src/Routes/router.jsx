@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
       element: <OTPVerification/>
     }, 
     {
-      path: '/ba',
+      path: '/forgetPassword',
       element: <ForgotPassword/>
     }
   ]);

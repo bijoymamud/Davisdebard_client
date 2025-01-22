@@ -1,15 +1,28 @@
 import { useForm } from "react-hook-form"
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useLoggedUserMutation } from "../redux/features/baseApi/baseApi"
+
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const { register, handleSubmit, reset } = useForm()
+  const [loggedUser, {isLoading}] = useLoggedUserMutation()
+  const navigate = useNavigate();
+  const onSubmit = (userData) => {
+    
+    try {
+      const loginResponse = loggedUser(userData).unwrap();
+      console.log("logged in response", loginResponse);
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data)
-    reset()
+      // for storeing token
+      // localStorage.setItem("token", response.tokens.access);
+      navigate("/");
+    } catch (error) {
+      console.log("Login error", error)
+    }
+    
   }
 
   return (
@@ -84,7 +97,7 @@ export default function Login() {
                   Remember Password
                 </label>
               </div>
-              <Link to="/forgotPasword" className="text-sm text-black font-medium">
+              <Link to="/forgetPassword" className="text-sm text-black font-medium">
                 Forgot password?
               </Link>
             </div>

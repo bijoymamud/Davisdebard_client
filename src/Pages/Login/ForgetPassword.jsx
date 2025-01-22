@@ -2,6 +2,8 @@
 import { Mail } from 'lucide-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useForgetPasswordMutation } from '../redux/features/baseApi/baseApi';
+import { useNavigate } from 'react-router-dom';
 
 // Define the ForgotPassword component
 const ForgotPassword = () => {
@@ -11,9 +13,18 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm();
 
+  const [forgetPassword, {isLoading}] = useForgetPasswordMutation();
+  const navigate = useNavigate()
   const onSubmit = (data) => {
-    console.log(data);
-    // Add logic to handle the submitted email
+   try {
+    const response = forgetPassword(data.email).unwrap();
+    console.log(response);
+    localStorage.setItem("email", data.email);
+    navigate("/OTPVerification")
+
+   } catch (error) {
+    console.error("Forget Password Error", error)
+   }
   };
 
   return (
@@ -34,10 +45,7 @@ const ForgotPassword = () => {
                 <input
                   {...register("email", {
                     required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Enter a valid email address",
-                    },
+                   
                   })}
                   type="email"
                   placeholder="user@email.com"

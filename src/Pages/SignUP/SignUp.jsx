@@ -6,6 +6,7 @@ import { useCreateUserMutation } from "../redux/features/baseApi/baseApi";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -20,6 +21,8 @@ export default function SignUp() {
    try {
     const createdUser = createUser(userData).unwrap();
     console.log(createdUser);
+    localStorage.setItem("email", userData.email);
+      reset();
     navigate("/login")
    } catch (err) {
     console.error("Error creating user:", err);
@@ -66,10 +69,6 @@ export default function SignUp() {
                 <input
                   {...register("email", {
                     required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Enter a valid email address",
-                    },
                   })}
                   type="email"
                   placeholder="user@email.com"
