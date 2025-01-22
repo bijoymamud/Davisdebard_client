@@ -19,15 +19,17 @@ const OTPVerification = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
-      <div className="w-full max-w-md p-6 bg-white rounded-lg ">
-        <h2 className="md:text-[36px] font-semibold">Use the Best AI – New Account Verification</h2>
-        <p className="text-[16px] text-gray-600 mb-10">
-        Enter the code sent to <span className="text-[#431D5A] font-semibold">Bill****@Example.com</span>
+    <div className="flex flex-col items-center justify-center h-screen bg-[#E1E4ED]">
+      <div className="w-full max-w-2xl p-6  rounded-lg ">
+        <div>
+        <h2 className="text-2xl font-semibold w-full ">Use the Best AI – New Account Verification</h2>
+        <p className="text-sm text-gray-600 mb-10 ">
+        Enter the code sent to <span className="text-[#431D5A] font-semibold ">Bill****@Example.com</span>
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-2/3 mx-auto">
           <div className="flex justify-between">
-            {[...Array(5)].map((_, index) => (
+            {[...Array(6)].map((_, index) => (
               <Controller
                 key={index}
                 name={`otp[${index}]`}
@@ -43,7 +45,7 @@ const OTPVerification = () => {
                 render={({ field }) => (
                   <input
                     {...field}
-                    type="text"
+                    type="number"
                     maxLength="1"
                     className="w-12 h-12 text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#431D5A] bg-[#431D5A1A]"
                     onInput={(e) => {

@@ -9,6 +9,7 @@ import Help_Support from "../Pages/HelpSupport/Help_Support";
 import Profile from "../Pages/Profile/Profile"
 import Faq from "../Pages/Faq/Faq";
 import ChatHistory from "../Pages/Home/ChatHistory/ChatHistory";
+import ForgotPassword from "../Pages/Login/ForgetPassword";
   
 export const router = createBrowserRouter([
     {
@@ -53,5 +54,9 @@ export const router = createBrowserRouter([
     {
       path:'/OTPVerification',
       element: <OTPVerification/>
+    }, 
+    {
+      path: '/ba',
+      element: <ForgotPassword/>
     }
   ]);
