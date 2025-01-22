@@ -10,18 +10,11 @@ export const baseApi = createApi({
         //create user
         createUser: builder.mutation({
           query: (userData) =>({
-            url: '/auth/register/',
+            url: '/register/',
             method: "POST", 
             body: userData,
-            headers: {
-                'Content-Type': 'application/json',
-            }
           })
         }),
-
-
-
-
     })
 })
 
@@ -29,7 +22,4 @@ export const baseApi = createApi({
 
 export const {
     useCreateUserMutation,
-
-
-
 } = baseApi
