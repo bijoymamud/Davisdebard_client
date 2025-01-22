@@ -10,6 +10,7 @@ import Profile from "../Pages/Profile/Profile"
 import Faq from "../Pages/Faq/Faq";
 import ChatHistory from "../Pages/Home/ChatHistory/ChatHistory";
 import ForgotPassword from "../Pages/Login/ForgetPassword";
+import ResetPassword from "../Pages/Login/ResetPassword";
   
 export const router = createBrowserRouter([
     {
@@ -58,5 +59,9 @@ export const router = createBrowserRouter([
     {
       path: '/forgetPassword',
       element: <ForgotPassword/>
+    },
+    {
+      path: '/resetPassword',
+      element: <ResetPassword/>
     }
   ]);

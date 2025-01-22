@@ -33,10 +33,29 @@ export const baseApi = createApi({
                 method: "POST",
                 body: {email}
             })
-        })
+        }),
 
 
+        //opt verification
+        verifyOTP : builder.mutation({
+            query: ({email, otp}) =>({
+                url: "/verify-otp/",
+                method: "POST",
+                body: {email, otp}
+            })
+        }),
 
+
+        changedPassword: builder.mutation({
+            query: (data) => ({
+              url: '/password-reset/confirm/',
+              method: 'PUT',
+              body: data,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }),
+          }),
 
 
 
@@ -49,4 +68,6 @@ export const {
     useCreateUserMutation,
     useLoggedUserMutation,
     useForgetPasswordMutation,
+    useVerifyOTPMutation,
+    useChangedPasswordMutation
 } = baseApi
