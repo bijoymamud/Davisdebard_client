@@ -13,11 +13,7 @@ const ResetPassword = () => {
   const onSubmit = async (data) => {
     try {
       const email = localStorage.getItem("email");
-      const otp = localStorage.getItem("otp");
-      if (!email || !otp) {
-        setErrorMessage("Email or OTP not found. Please restart the process.");
-        return;
-      }
+      console.log(email);
 
       const response = await changedPassword({
         email,

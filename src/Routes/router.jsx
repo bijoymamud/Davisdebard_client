@@ -11,6 +11,7 @@ import Faq from "../Pages/Faq/Faq";
 import ChatHistory from "../Pages/Home/ChatHistory/ChatHistory";
 import ForgotPassword from "../Pages/Login/ForgetPassword";
 import ResetPassword from "../Pages/Login/ResetPassword";
+import HelpSupportThank from "../Pages/HelpSupport/HelpSupportThank";
   
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
           {
             path: '/chatHistory',
             element: <ChatHistory/>
+          }, 
+          {
+            path: "/helpSupportThank",
+            element: <HelpSupportThank/>
           }
       ]
     },

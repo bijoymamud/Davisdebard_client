@@ -3,7 +3,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.10.111:8000/api/v1'
+        baseUrl: 'http://192.168.10.111:8000/api/v1',
+        prepareHeaders: (headers) =>{
+            const token = localStorage.getItem("access_token");
+            if (token) {
+                // Add the token to the Authorization header
+                headers.set("Authorization", `Bearer ${token}`);
+              }
+              return headers;
+        }
     }),
     endpoints: (builder) =>({
 
@@ -17,7 +25,7 @@ export const baseApi = createApi({
         }),
 
 
-        //logging user
+        // logging user
         loggedUser : builder.mutation({
             query: (userData)=>({
                 url: "/login/",
@@ -25,6 +33,10 @@ export const baseApi = createApi({
                 body: userData
             })
         }),
+
+  
+
+          
 
         //forget password
         forgetPassword : builder.mutation({
@@ -49,13 +61,22 @@ export const baseApi = createApi({
         changedPassword: builder.mutation({
             query: (data) => ({
               url: '/password-reset/confirm/',
-              method: 'PUT',
+              method: 'POST',
               body: data,
-              headers: {
-                'Content-Type': 'application/json',
-              },
             }),
           }),
+
+        //   help & Support
+
+        helpSupport: builder.mutation({
+            query:(data) =>({
+                url: '/help&support/',
+                method: "POST",
+                body: data,
+                
+            })
+
+        })
 
 
 
@@ -69,5 +90,8 @@ export const {
     useLoggedUserMutation,
     useForgetPasswordMutation,
     useVerifyOTPMutation,
-    useChangedPasswordMutation
+    useChangedPasswordMutation,
+
+
+    useHelpSupportMutation,
 } = baseApi

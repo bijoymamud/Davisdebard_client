@@ -10,20 +10,43 @@ export default function Login() {
   const { register, handleSubmit, reset } = useForm()
   const [loggedUser, {isLoading}] = useLoggedUserMutation()
   const navigate = useNavigate();
-  const onSubmit = (userData) => {
-    
-    try {
-      const loginResponse = loggedUser(userData).unwrap();
-      console.log("logged in response", loginResponse);
 
-      // for storeing token
-      // localStorage.setItem("token", response.tokens.access);
+
+  // const onSubmit = (userData) => {
+    
+  //   try {
+  //     const loginResponse = loggedUser(userData).unwrap();
+  //     console.log("logged in response", loginResponse);
+      
+    
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log("Login error", error)
+  //   }
+    
+  // }
+
+
+
+  const onSubmit = async (userData) => {
+    try {
+      const loginResponse = await loggedUser(userData).unwrap();
+      console.log("logged in response", loginResponse);
+  
+      // Save the access_token in localStorage
+      localStorage.setItem("access_token", loginResponse.data.access_token);
+  
+      // Display the token in the console
+      console.log("Access Token:", localStorage.getItem("access_token"));
+  
+      // Navigate to the home page
       navigate("/");
     } catch (error) {
-      console.log("Login error", error)
+      console.log("Login error", error);
     }
-    
-  }
+  };
+  
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#E1E4ED]">
