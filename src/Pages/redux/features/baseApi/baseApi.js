@@ -51,6 +51,14 @@ export const baseApi = createApi({
             })
         }),
 
+        // resendOTP
+        resendOTP: builder.mutation({
+            query: (email) =>({
+                url: "/send-otp/",
+                method: "POST",
+                body: {email}
+            })
+        }), 
 
         //opt verification
         verifyOTP : builder.mutation({
@@ -60,6 +68,7 @@ export const baseApi = createApi({
                 body: {email, otp}
             })
         }),
+
 
 
         changedPassword: builder.mutation({
@@ -109,6 +118,7 @@ export const {
     useLoggedUserMutation,
     useForgetPasswordMutation,
     useVerifyOTPMutation,
+    useResendOTPMutation,
     useChangedPasswordMutation,
 
     usePerticularUserQuery,

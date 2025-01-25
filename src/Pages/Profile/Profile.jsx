@@ -1,14 +1,24 @@
-
-
-
-import { Camera, ChevronLeft, EyeOff, LockKeyhole, SquarePen } from "lucide-react";
-import React from "react";
+import {
+  Camera,
+  ChevronLeft,
+  EyeOff,
+  Eye,
+  LockKeyhole,
+  SquarePen,
+} from "lucide-react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePerticularUserQuery } from "../redux/features/baseApi/baseApi";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { data, isLoading, error } = usePerticularUserQuery();
+
+  // States
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Handle loading state
   if (isLoading) {
@@ -30,6 +40,18 @@ const Profile = () => {
 
   // Extract user data
   const user = data?.data;
+
+  const handleUpdatePassword = () => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    // Replace this with your actual password update API logic
+    console.log("Updated Password:", password);
+
+    alert("Password updated successfully!");
+  };
 
   return (
     <section className="bg-[#e1e4ed]">
@@ -56,19 +78,20 @@ const Profile = () => {
                     "https://img.freepik.com/premium-photo/photo-boy-cute-boy-character_911060-18951.jpg"
                   }
                   alt="Profile"
-                  className="w-32 h-32 rounded-full border-2 border-purple-500 cursor-pointer"
+                  className="h-24 rounded-full border-2 border-[#431D5A] cursor-pointer"
                 />
                 <button
                   className="absolute bottom-0 right-0 bg-[#431D5A] shadow-md text-white p-2 rounded-full"
                   title="Upload Profile Picture"
                 >
-                  <Camera size={28} />
+                  <Camera size={20} />
                 </button>
               </div>
 
               {/* Input Fields */}
               <div className="md:flex md:flex-wrap gap-6 w-full">
                 <div className="md:flex gap-4 w-full">
+                  {/* Name Field */}
                   <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A]">
                     <input
                       type="text"
@@ -81,22 +104,13 @@ const Profile = () => {
                       <SquarePen size={20} className="text-[#431D5A]" />
                     </button>
                   </div>
-
-                  <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A] my-4 md:my-0">
-                    <input
-                      type="text"
-                      value={""} // Placeholder for subscription type
-                      placeholder="Subscription Type"
-                      className="flex-1 py-3 md:py-0 bg-transparent outline-none px-4 text-black text-base"
-                      readOnly
-                    />
-                  </div>
                 </div>
               </div>
 
-              {/* Additional Input Fields */}
-              <div className="md:flex gap-4 w-full md:mt-5">
-                <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A] mb-5 md:mb-0">
+              {/* Email Field */}
+           <div className="grid grid-cols-2  w-full gap-4">
+           <div className="w-full md:mt-5">
+                <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A]">
                   <input
                     type="text"
                     value={user?.email || ""}
@@ -105,27 +119,70 @@ const Profile = () => {
                     readOnly
                   />
                 </div>
-
+              </div>
+              {/* //package name */}
+              <div className="w-full md:mt-5">
                 <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A]">
+                  <input
+                    type="text"
+                    value={"Free"}
+                    placeholder="Email"
+                    className="flex-1 bg-transparent outline-none px-4 text-black text-base py-3"
+                    readOnly
+                  />
+                </div>
+              </div>
+           </div>
+
+              {/* Editable Password Fields */}
+              <div className="md:grid grid-cols-2 gap-4 w-full md:mt-5">
+                {/* Password */}
+                <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A] mb-5 md:mb-0">
                   <button className="flex items-center justify-center text-purple-600 ms-3">
                     <LockKeyhole size={20} className="text-[#431D5A]" />
                   </button>
                   <input
-                    type="password"
-                    value={"********"} // Masked password
-                    placeholder="Password"
-                    className="flex-1 bg-transparent outline-none px-4 text-black text-base"
-                    readOnly
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    placeholder="New Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="flex-1 bg-[#e1e4ed] outline-none px-4 text-black text-base"
                   />
-                  <button className="flex items-center justify-center w-12 h-12 text-purple-600">
-                    <EyeOff size={20} className="text-[#431D5A]" />
+                  <button
+                    className="flex items-center justify-center w-12 h-12 text-purple-600"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <Eye size={20} className="text-[#431D5A]"/> : <EyeOff size={20} className="text-[#431D5A]"/>}
+                  </button>
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-1 items-center rounded-md shadow p-2 border border-[#431D5A]">
+                  <button className="flex items-center justify-center text-[#431D5A] ms-3">
+                    <LockKeyhole size={20} className="text-[#431D5A]" />
+                  </button>
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    placeholder="Confirm Password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="flex-1 bg-[#e1e4ed] outline-none px-4 text-black text-base"
+                  />
+                  <button
+                    className="flex items-center justify-center w-12 h-12 text-purple-600"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <Eye size={20} className="text-[#431D5A]"/> : <EyeOff size={20} className="text-[#431D5A]" />}
                   </button>
                 </div>
               </div>
 
               {/* Update Button */}
               <div className="mt-8 w-full flex justify-end">
-                <button className="px-6 py-2 bg-[#431D5A] text-white rounded-md text-lg font-semibold shadow hover:bg-[#360F47]">
+                <button
+                  onClick={handleUpdatePassword}
+                  className="px-10 py-2 bg-[#431D5A] text-white rounded-md text-base font-semibold shadow hover:bg-[#360F47]"
+                >
                   Update
                 </button>
               </div>
@@ -138,5 +195,4 @@ const Profile = () => {
 };
 
 export default Profile;
-
 
