@@ -35,6 +35,10 @@ export const baseApi = createApi({
         }),
 
   
+        //perticular logged user
+        perticularUser: builder.query({
+            query: ()=> "/users/"
+        }),
 
           
 
@@ -107,6 +111,7 @@ export const {
     useVerifyOTPMutation,
     useChangedPasswordMutation,
 
+    usePerticularUserQuery,
 
     useHelpSupportMutation,
 

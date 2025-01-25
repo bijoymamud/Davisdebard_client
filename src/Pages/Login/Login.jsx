@@ -12,9 +12,9 @@ export default function Login() {
   const navigate = useNavigate();
 
 
-  const onSubmit =  (userData) => {
+  const onSubmit = async  (userData) => {
     try {
-      const loginResponse =  loggedUser(userData).unwrap();
+      const loginResponse = await  loggedUser(userData).unwrap();
       console.log("logged in response", loginResponse);
   
       //store loggedin user name
