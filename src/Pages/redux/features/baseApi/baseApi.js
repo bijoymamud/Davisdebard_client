@@ -75,7 +75,22 @@ export const baseApi = createApi({
                 body: data,
                 
             })
+        }),
 
+        //get packages
+
+        getPackages: builder.query({
+            query: ()=> "/packages/"
+        }),
+
+        // payment_checkout
+
+        paymentActivation: builder.query({
+            query: (data) =>({
+                url: "/checkout-session/",
+                method: "POST",
+                body: data
+            })
         })
 
 
@@ -94,4 +109,8 @@ export const {
 
 
     useHelpSupportMutation,
+
+    useGetPackagesQuery,
+
+    usePaymentActivationQuery,
 } = baseApi

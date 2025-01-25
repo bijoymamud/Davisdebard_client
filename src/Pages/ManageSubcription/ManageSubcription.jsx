@@ -1,58 +1,69 @@
-import { ChevronLeft } from "lucide-react";
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Correct import
+import { useGetPackagesQuery } from "../redux/features/baseApi/baseApi";
+import { useNavigate } from "react-router-dom";
 
 const ManageSubscription = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const { data, isLoading, error } = useGetPackagesQuery();
+  const navigate = useNavigate();
+
+
+  console.log("Data:", data);
+  console.log("IsLoading:", isLoading);
+  console.log("Error:", error);
+
+
 
   return (
-    <div className="bg-[#e1e4ed]">
-      <div className="pt-10">
-        <button
-          onClick={() => navigate(-1)} // Correct usage of navigate to go back
-          className="flex text-[#431D5A] hover:bg-[#431D5A] hover:text-white border border-[#431D5A] px-2 py-2 rounded-md ms-10 mx-auto"
-        >
-          <ChevronLeft size={28} />
-          <h2 className="uppercase text-lg font-medium pr-2">Return</h2>
-        </button>
-      </div>
-      {/* Main Content */}
-      <div className="flex flex-col items-center justify-center h-screen w-full px-6">
-        <div className="w-full max-w-3xl">
-          <h1 className="text-[30px] text-black font-semibold py-5">
-            Manage Subscription
-          </h1>
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="Subscription pack name.."
-            className="border py-2 px-4 rounded-md w-full mb-6"
-          />
-          <div className="bg-gray-50 p-6 rounded-md border border-gray-200">
-            <h2 className="text-lg font-medium text-gray-700 mb-4 underline">
-              Bill Info
-            </h2>
-            <p className="text-sm text-gray-600">
-              <strong>Name:</strong> PAPPU
-            </p>
-            <p className="text-sm text-gray-600">
-              <strong>Email:</strong> Pappyroy6393@gmail.com
-            </p>
-            <p className="text-sm text-gray-600">
-              <strong>Purchase Date:</strong> 2.1.2025
-            </p>
-            <p className="text-sm text-gray-600">
-              <strong>Expiry Date:</strong> 2.1.2026
-            </p>
-          </div>
-          <button className="py-3 hover:bg-[#431D5A] hover:text-white border border-[#431D5A] mt-5 px-4 rounded-xl font-semibold">
+    <section className="min-h-screen bg-[#e1e4ed] flex items-center justify-center">
+      <div className="mx-auto md:w-2/3 space-y-3">
+        <h1 className="text-3xl font-bold text-gray-800 text-center">
+        Subscribe Today!
+        </h1>
+        <p className="text-gray-600 text-center font-semibold space-y-10 mb-10 pb-10">
+          Manage your subscription plan, upgrade, or cancel as needed. Choose a
+          plan or view your current subscription details below.
+        </p>
+
+        {/* Render Subscription Plans */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5 md:px-0 ">
+          {data?.data.map((plan) => (
+            <div
+              key={plan.id}
+              className="card bg-white shadow-md flex flex-col justify-between"
+            >
+              {/* Card Content */}
+              <div className="p-6 pt-8">
+                <h2 className="card-title text-gray-800 mb-2">{plan.name} Plan</h2>
+                <p className="md:text-base font-medium text-black mb-5 ">Price: ${plan.price}</p>
+                <ul className="text-sm text-gray-600 mb-4">
+                  {plan.features.map((feature, index) => (
+                    <li key={index}>- {feature}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card Button */}
+              <div className="card-actions p-6">
+                <button className="btn hover:bg-[#431D5A]  bg-purple-900 text-white  text-base w-full rounded-full">
+                  {plan.name}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Cancel Subscription */}
+        <div className="text-center">
+          <button 
+          onClick={()=> navigate(-1)}
+          className="btn btn-link text-red-500 hover:text-red-700">
             Cancel Subscription
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default ManageSubscription;
+

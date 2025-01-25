@@ -370,6 +370,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { IoInvertMode } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { HiOutlineBars4 } from "react-icons/hi2";
 
 function ChatInterface() {
   const [message, setMessage] = useState("");
@@ -522,8 +523,9 @@ function ChatInterface() {
           </div>
 
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn m-1">
-              <Menu />
+            <div tabIndex={0} role="button" className=" m-1">
+            <HiOutlineBars4 className="text-4xl" />
+
             </div>
             <ul
               tabIndex={0}
@@ -600,7 +602,7 @@ function ChatInterface() {
    </div>
  </dialog>
 
-        <div className="relative md:ms-[90px]">
+        <div className="relative md:ms-[105px]">
           <div className="relative bg-[#7B549333] rounded-xl flex items-center p-3 shadow-sm border border-purple-100 w-[685px] mx-auto">
             <input
               type="text"

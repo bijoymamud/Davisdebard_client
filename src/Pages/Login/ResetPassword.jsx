@@ -24,7 +24,7 @@ const ResetPassword = () => {
       console.log("Password Reset Response:", response);
 
       // Redirect to login page
-      navigate("/login");
+      navigate("/changePassSuccessfull");
     } catch (error) {
       console.error("Reset Password Error:", error);
       setErrorMessage(error?.data?.message || "An error occurred. Please try again.");

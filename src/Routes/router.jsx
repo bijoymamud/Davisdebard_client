@@ -12,6 +12,7 @@ import ChatHistory from "../Pages/Home/ChatHistory/ChatHistory";
 import ForgotPassword from "../Pages/Login/ForgetPassword";
 import ResetPassword from "../Pages/Login/ResetPassword";
 import HelpSupportThank from "../Pages/HelpSupport/HelpSupportThank";
+import ChangePassSuccessFull from '../Pages/Login/ChangePassSuccessfull'
   
 export const router = createBrowserRouter([
     {
@@ -46,7 +47,8 @@ export const router = createBrowserRouter([
           {
             path: "/helpSupportThank",
             element: <HelpSupportThank/>
-          }
+          }, 
+         
       ]
     },
     {
@@ -68,5 +70,9 @@ export const router = createBrowserRouter([
     {
       path: '/resetPassword',
       element: <ResetPassword/>
+    },
+    {
+      path: "/changePassSuccessfull", 
+      element: <ChangePassSuccessFull/>
     }
   ]);

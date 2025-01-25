@@ -12,27 +12,13 @@ export default function Login() {
   const navigate = useNavigate();
 
 
-  // const onSubmit = (userData) => {
-    
-  //   try {
-  //     const loginResponse = loggedUser(userData).unwrap();
-  //     console.log("logged in response", loginResponse);
-      
-    
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log("Login error", error)
-  //   }
-    
-  // }
-
-
-
-  const onSubmit = async (userData) => {
+  const onSubmit =  (userData) => {
     try {
-      const loginResponse = await loggedUser(userData).unwrap();
+      const loginResponse =  loggedUser(userData).unwrap();
       console.log("logged in response", loginResponse);
   
+      //store loggedin user name
+      localStorage.setItem("userData", JSON.stringify(userData));
       // Save the access_token in localStorage
       localStorage.setItem("access_token", loginResponse.data.access_token);
   
