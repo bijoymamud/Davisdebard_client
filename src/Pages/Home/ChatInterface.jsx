@@ -361,17 +361,25 @@ import { IoInvertMode } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineBars4 } from "react-icons/hi2";
 import { useLogOutUserMutation } from "../redux/features/baseApi/baseApi";
+import { LuLogIn } from "react-icons/lu";
 
 function ChatInterface() {
   const [message, setMessage] = useState("");
   const [lastMessage, setLastMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [selectedBot, setSelectedBot] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
 
   const [logOutUser] = useLogOutUserMutation()
 
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setIsLoggedIn(!!token); // Set `true` if token exists, otherwise `false`
+  }, []);
+  
   const botItems = [
     {
       name: "ChatGPT",
@@ -404,6 +412,7 @@ const refresh_token = localStorage.getItem("refresh_token");
    const response =await logOutUser({refresh_token}).unwrap();
    localStorage.clear('access_token'); 
    localStorage.clear('refresh_token'); 
+   setIsLoggedIn(false);
    navigate('/login')
     
  } catch (error) {
@@ -539,59 +548,87 @@ const refresh_token = localStorage.getItem("refresh_token");
 
             <ul
               tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[300px] p-2 shadow"
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[300px] p-2 shadow "
             >
-              <li>
-                <a className="flex items-center gap-2">
+              {isLoggedIn && (
+                <li>
+                <Link to="/chatHistory" className="flex items-center gap-2 hover:bg-gray-200">
                   <RiChatHistoryLine className="text-xl" />
                   <span className="text-lg font-semibold">Chat History</span>
-                </a>
+                </Link>
               </li>
+              )}
+
               <li>
-                <Link to="/Support">
+                <Link to="/Support" className="hover:bg-gray-200">
                   <CircleHelp size={20} />
                   <span className="text-lg font-semibold">Support</span>
                 </Link>
               </li>
               <li>
-                <Link to="/faq">
+                <Link to="/faq" className="hover:bg-gray-200">
                   <MdOutlineQuestionAnswer className="text-xl" />
                   <span className="text-lg font-semibold">FAQ</span>
                 </Link>
               </li>
               <li>
-                <Link to="/manageSubcription">
+                <Link to="/manageSubcription" className="hover:bg-gray-200">
                   <AiFillThunderbolt className="text-xl" />
                   <span className="text-lg font-semibold">Manage Subscription</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/userProfile">
-                  <FaRegUser className="text-xl" />
-                  <span className="text-lg font-semibold">Profile</span>
-                </Link>
-              </li>
+
+              {isLoggedIn && (
+           <li>
+           <Link to="/userProfile" className="hover:bg-gray-200">
+             <FaRegUser className="text-xl" />
+             <span className="text-lg font-semibold">Profile</span>
+           </Link>
+         </li>
+        )}
 
               <li>
-                <a>
+                <button className="hover:bg-gray-200">
                   <IoInvertMode className="text-xl" />
                   <span className="text-lg font-semibold">Light Mode</span>
-                </a>
+                </button>
               </li>
 
 
 
 
+              {isLoggedIn ? (
+                <li>
+                  <button
+                    onClick={() =>
+                      document.getElementById("logout_modal").showModal()
+                    }
+                    className="flex items-center gap-2 hover:bg-gray-200"
+                  >
+                    <MdLogout className="text-xl" />
+                    <span className="text-lg font-semibold">Log out</span>
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/login" className="flex items-center gap-2">
+                    <LuLogIn
+                    className="text-xl" />
+                    <span className="text-lg font-semibold">Login</span>
+                  </Link>
+                </li>
+              )}
 
 
-              <li>
+
+              {/* <li>
               <button
                 onClick={() => document.getElementById("logout_modal").showModal()}
                 className="flex items-center gap-2" >
                 <MdLogout className="text-xl" />
               <span className="text-lg font-semibold">Log out</span>
              </button>
-              </li>
+              </li> */}
             </ul>
 
           </div>
