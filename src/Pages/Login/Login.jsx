@@ -181,7 +181,7 @@ export default function Login() {
       console.log("Login error", error);
 
       // Show error toast
-      toast.error("Login failed. Please check your credentials.", {
+      toast.error("Login failed. Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -297,3 +297,6 @@ export default function Login() {
     </div>
   );
 }
+
+
+

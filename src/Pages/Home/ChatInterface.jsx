@@ -641,7 +641,7 @@ const refresh_token = localStorage.getItem("refresh_token");
     <div className="flex items-center justify-center gap-5">
       {/* Cancel Button */}
       <form method="dialog">
-        <button className="btn bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">Cancel</button>
+        <button className="btn border-none bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">Cancel</button>
       </form>
       
       {/* Log Out Button */}
@@ -654,8 +654,6 @@ const refresh_token = localStorage.getItem("refresh_token");
     </div>
   </div>
 </dialog>
-
-
 
 
         <div className="relative md:ms-[105px]">
