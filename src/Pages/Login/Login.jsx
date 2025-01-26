@@ -21,6 +21,8 @@ export default function Login() {
       localStorage.setItem("userData", JSON.stringify(userData));
       // Save the access_token in localStorage
       localStorage.setItem("access_token", loginResponse.data.access_token);
+      
+      localStorage.setItem("refresh_token", loginResponse.data.refresh_token);
   
       // Display the token in the console
       console.log("Access Token:", localStorage.getItem("access_token"));

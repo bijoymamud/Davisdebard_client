@@ -350,27 +350,17 @@
 // // // ----------------------perfect code without history---------------------
 
 
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Mic, Send, Plus, Menu, CircleHelp } from "lucide-react";
 import { RiChatHistoryLine } from "react-icons/ri";
 import { MdLogout, MdOutlineQuestionAnswer } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
-import { FaRegUser } from "react-icons/fa";
+import { FaMoon, FaRegUser, FaSun } from "react-icons/fa";
 import { IoInvertMode } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineBars4 } from "react-icons/hi2";
+import { useLogOutUserMutation } from "../redux/features/baseApi/baseApi";
 
 function ChatInterface() {
   const [message, setMessage] = useState("");
@@ -379,6 +369,8 @@ function ChatInterface() {
   const [selectedBot, setSelectedBot] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+
+  const [logOutUser] = useLogOutUserMutation()
 
   const botItems = [
     {
@@ -403,11 +395,21 @@ function ChatInterface() {
     },
   ];
 
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-  }, []);
+const handleLogOutuser = async () =>{
+const refresh_token = localStorage.getItem("refresh_token");
+
+ try {
+   const response =await logOutUser({refresh_token}).unwrap();
+   localStorage.clear('access_token'); 
+   localStorage.clear('refresh_token'); 
+   navigate('/login')
+    
+ } catch (error) {
+  console.error("Logout Error:", error)
+ }
+}
 
 
   const handleBotResponse = async (bot, userMessage) => {
@@ -570,27 +572,16 @@ function ChatInterface() {
                 </Link>
               </li>
 
-              {/* <li>
+              <li>
                 <a>
                   <IoInvertMode className="text-xl" />
                   <span className="text-lg font-semibold">Light Mode</span>
                 </a>
-              </li> */}
+              </li>
 
-<li>
-  <Link
-    onClick={() => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const newTheme = currentTheme === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme); // Save preference
-    }}
-    className="flex items-center gap-2 cursor-pointer"
-  >
-    <IoInvertMode className="text-xl" />
-    <span className="text-lg font-semibold">Light Mode</span>
-  </Link>
-</li>
+
+
+
 
 
               <li>
@@ -606,28 +597,29 @@ function ChatInterface() {
           </div>
         </div>
 
-        {/* Modal Component */}
- <dialog id="logout_modal" className="modal">
-   <div className="modal-box">
-     <p className="py-4">Leave Use the Best AI?</p>     
-     <div className="flex items-center justify-center gap-5">
-       <form method="dialog">         {/* Close button for the modal */}
-         <button className="btn bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">Cancel</button>
+        {/* Modal Component logout*/}
+        <dialog id="logout_modal" className="modal">
+  <div className="modal-box">
+    <p className="py-4">Leave Use the Best AI?</p>
+    <div className="flex items-center justify-center gap-5">
+      {/* Cancel Button */}
+      <form method="dialog">
+        <button className="btn bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">Cancel</button>
       </form>
-       <button
-         className="btn bg-[#431D5A] hover:bg-[#431D5A] text-white"
-         onClick={() => {
-           // Perform logout action here (e.g., clear user session, redirect to login)
-           console.log("User logged out");
-           // Example: Redirect to login page
-          window.location.href = "/login";
-        }}
-       >
+      
+      {/* Log Out Button */}
+      <button
+        onClick={() => handleLogOutuser()} // Corrected to invoke the function
+        className="btn bg-[#431D5A] hover:bg-[#431D5A] text-white"
+      >
         Log Out
-       </button>
-     </div>
-   </div>
- </dialog>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+
+
 
         <div className="relative md:ms-[105px]">
           <div className="relative bg-[#7B549333] rounded-xl flex items-center p-3 shadow-sm border border-purple-100 w-[685px] mx-auto">

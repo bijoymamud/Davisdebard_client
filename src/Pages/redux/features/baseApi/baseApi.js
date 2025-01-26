@@ -39,10 +39,19 @@ export const baseApi = createApi({
 
         //perticular update user
         updateUserInfo: builder.mutation({
-            query: (data)=>({
-                url: `/users/${id}`,
+            query: ({id, data})=>({
+                url: `/users/${id}/`,
                 method: "PATCH",
                 body: data
+            })
+        }),
+
+        //logout user
+        logOutUser: builder.mutation({
+            query: (data) =>({
+            url: "/logout/",
+            method: "POST",
+            body: data
             })
         }),
 
@@ -116,10 +125,12 @@ export const baseApi = createApi({
 export const {
     useCreateUserMutation,
     useLoggedUserMutation,
+    useLogOutUserMutation,
     useForgetPasswordMutation,
     useVerifyOTPMutation,
     useResendOTPMutation,
     useChangedPasswordMutation,
+    useUpdateUserInfoMutation,
 
     usePerticularUserQuery,
 
