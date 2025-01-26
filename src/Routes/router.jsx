@@ -15,6 +15,7 @@ import HelpSupportThank from "../Pages/HelpSupport/HelpSupportThank";
 import ChangePassSuccessFull from '../Pages/Login/ChangePassSuccessfull'
 import PaymentSuccess from "../Pages/ManageSubcription/PaymentSuccess";
 import PaymentCancle from "../Pages/ManageSubcription/PaymentCancle";
+import BillingInfo from "../Pages/BillingInfo/BillingInfo";
   
 export const router = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
             path: "/helpSupportThank",
             element: <HelpSupportThank/>
           }, 
+          {
+            path: "/billingInfo",
+            element: <BillingInfo/>
+          }
          
       ]
     },

@@ -113,6 +113,11 @@ export const baseApi = createApi({
                 method: "POST",
                 body: data
             })
+        }),
+
+        //billinginfo
+        billingInfo: builder.query({
+            query:()=> "/subscriptions/"
         })
 
 
@@ -139,5 +144,7 @@ export const {
     useGetPackagesQuery,
 
     usePaymentActivationMutation,
+
+    useBillingInfoQuery,
 
 } = baseApi

@@ -356,7 +356,7 @@ import { Mic, Send, Plus, Menu, CircleHelp } from "lucide-react";
 import { RiChatHistoryLine } from "react-icons/ri";
 import { MdLogout, MdOutlineQuestionAnswer } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
-import { FaMoon, FaRegUser, FaSun } from "react-icons/fa";
+import {FaRegUser} from "react-icons/fa";
 import { IoInvertMode } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineBars4 } from "react-icons/hi2";
