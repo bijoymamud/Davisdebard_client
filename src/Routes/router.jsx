@@ -13,6 +13,8 @@ import ForgotPassword from "../Pages/Login/ForgetPassword";
 import ResetPassword from "../Pages/Login/ResetPassword";
 import HelpSupportThank from "../Pages/HelpSupport/HelpSupportThank";
 import ChangePassSuccessFull from '../Pages/Login/ChangePassSuccessfull'
+import PaymentSuccess from "../Pages/ManageSubcription/PaymentSuccess";
+import PaymentCancle from "../Pages/ManageSubcription/PaymentCancle";
   
 export const router = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
           {
             path: '/manageSubcription',
             element: <ManageSubcription/>
+          },
+          {
+            path: "/paymentSuccesspage",
+            element: <PaymentSuccess/>
+          },
+          {
+            path: "/paymentCanclepage",
+            element: <PaymentCancle/>
           },
           {
             path: '/Support',

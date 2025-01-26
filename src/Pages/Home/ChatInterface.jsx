@@ -361,7 +361,7 @@
 
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Mic, Send, Plus, Menu, CircleHelp } from "lucide-react";
 import { RiChatHistoryLine } from "react-icons/ri";
@@ -402,6 +402,13 @@ function ChatInterface() {
       apiEndpoint: "https://api.microsoft.com/copilot/respond",
     },
   ];
+
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
 
   const handleBotResponse = async (bot, userMessage) => {
     setIsThinking(true);
@@ -527,6 +534,7 @@ function ChatInterface() {
             <HiOutlineBars4 className="text-4xl" />
 
             </div>
+
             <ul
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[300px] p-2 shadow"
@@ -561,12 +569,30 @@ function ChatInterface() {
                   <span className="text-lg font-semibold">Profile</span>
                 </Link>
               </li>
-              <li>
+
+              {/* <li>
                 <a>
                   <IoInvertMode className="text-xl" />
                   <span className="text-lg font-semibold">Light Mode</span>
                 </a>
-              </li>
+              </li> */}
+
+<li>
+  <Link
+    onClick={() => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme); // Save preference
+    }}
+    className="flex items-center gap-2 cursor-pointer"
+  >
+    <IoInvertMode className="text-xl" />
+    <span className="text-lg font-semibold">Light Mode</span>
+  </Link>
+</li>
+
+
               <li>
               <button
                 onClick={() => document.getElementById("logout_modal").showModal()}
@@ -576,6 +602,7 @@ function ChatInterface() {
              </button>
               </li>
             </ul>
+
           </div>
         </div>
 

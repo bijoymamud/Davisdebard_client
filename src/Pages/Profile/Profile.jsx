@@ -255,6 +255,7 @@ import { usePerticularUserQuery } from "../redux/features/baseApi/baseApi";
 const Profile = () => {
   const navigate = useNavigate();
   const { data, isLoading, error } = usePerticularUserQuery();
+  
 
   const [profileImage, setProfileImage] = useState(""); // State for uploaded image preview
   const [showPassword, setShowPassword] = useState(false);
@@ -277,7 +278,7 @@ const Profile = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Loading...</p>
+        <span className="loading loading-bars loading-lg"></span>
       </div>
     );
   }
@@ -293,6 +294,7 @@ const Profile = () => {
 
   // Extract user data
   const user = data?.data;
+  console.log(user)
 
   // Handle image upload
   const handleImageChange = (event) => {

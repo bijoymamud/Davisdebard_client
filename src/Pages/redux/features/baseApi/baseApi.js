@@ -7,7 +7,6 @@ export const baseApi = createApi({
         prepareHeaders: (headers) =>{
             const token = localStorage.getItem("access_token");
             if (token) {
-                // Add the token to the Authorization header
                 headers.set("Authorization", `Bearer ${token}`);
               }
               return headers;
@@ -24,7 +23,6 @@ export const baseApi = createApi({
           })
         }),
 
-
         // logging user
         loggedUser : builder.mutation({
             query: (userData)=>({
@@ -34,13 +32,19 @@ export const baseApi = createApi({
             })
         }),
 
-  
         //perticular logged user
         perticularUser: builder.query({
             query: ()=> "/users/"
         }),
 
-          
+        //perticular update user
+        updateUserInfo: builder.mutation({
+            query: (data)=>({
+                url: `/users/${id}`,
+                method: "PATCH",
+                body: data
+            })
+        }),
 
         //forget password
         forgetPassword : builder.mutation({
@@ -69,8 +73,7 @@ export const baseApi = createApi({
             })
         }),
 
-
-
+        //change pass
         changedPassword: builder.mutation({
             query: (data) => ({
               url: '/password-reset/confirm/',
@@ -80,7 +83,6 @@ export const baseApi = createApi({
           }),
 
         //   help & Support
-
         helpSupport: builder.mutation({
             query:(data) =>({
                 url: '/help&support/',
@@ -91,14 +93,12 @@ export const baseApi = createApi({
         }),
 
         //get packages
-
         getPackages: builder.query({
             query: ()=> "/packages/"
         }),
 
         // payment_checkout
-
-        paymentActivation: builder.query({
+        paymentActivation: builder.mutation({
             query: (data) =>({
                 url: "/checkout-session/",
                 method: "POST",
@@ -127,5 +127,6 @@ export const {
 
     useGetPackagesQuery,
 
-    usePaymentActivationQuery,
+    usePaymentActivationMutation,
+
 } = baseApi
