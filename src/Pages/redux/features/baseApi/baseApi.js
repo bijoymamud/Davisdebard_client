@@ -4,28 +4,28 @@ export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://192.168.10.111:8000/api/v1',
-        prepareHeaders: (headers) =>{
+        prepareHeaders: (headers) => {
             const token = localStorage.getItem("access_token");
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
-              }
-              return headers;
+            }
+            return headers;
         }
     }),
-    endpoints: (builder) =>({
+    endpoints: (builder) => ({
 
         //create user
         createUser: builder.mutation({
-          query: (userData) =>({
-            url: '/register/',
-            method: "POST", 
-            body: userData,
-          })
+            query: (userData) => ({
+                url: '/register/',
+                method: "POST",
+                body: userData,
+            })
         }),
 
         // logging user
-        loggedUser : builder.mutation({
-            query: (userData)=>({
+        loggedUser: builder.mutation({
+            query: (userData) => ({
                 url: "/login/",
                 method: "POST",
                 body: userData
@@ -34,12 +34,12 @@ export const baseApi = createApi({
 
         //perticular logged user
         perticularUser: builder.query({
-            query: ()=> "/users/"
+            query: () => "/users/"
         }),
 
         //perticular update user
         updateUserInfo: builder.mutation({
-            query: ({id, data})=>({
+            query: ({ id, data }) => ({
                 url: `/users/${id}/`,
                 method: "PATCH",
                 body: data
@@ -48,67 +48,67 @@ export const baseApi = createApi({
 
         //logout user
         logOutUser: builder.mutation({
-            query: (data) =>({
-            url: "/logout/",
-            method: "POST",
-            body: data
+            query: (data) => ({
+                url: "/logout/",
+                method: "POST",
+                body: data
             })
         }),
 
         //forget password
-        forgetPassword : builder.mutation({
-            query: (email) =>({
+        forgetPassword: builder.mutation({
+            query: (email) => ({
                 url: '/password-reset/',
                 method: "POST",
-                body: {email}
+                body: { email }
             })
         }),
 
         // resendOTP
         resendOTP: builder.mutation({
-            query: (email) =>({
+            query: (email) => ({
                 url: "/send-otp/",
                 method: "POST",
-                body: {email}
+                body: { email }
             })
-        }), 
+        }),
 
         //opt verification
-        verifyOTP : builder.mutation({
-            query: ({email, otp}) =>({
+        verifyOTP: builder.mutation({
+            query: ({ email, otp }) => ({
                 url: "/verify-otp/",
                 method: "POST",
-                body: {email, otp}
+                body: { email, otp }
             })
         }),
 
         //change pass
         changedPassword: builder.mutation({
             query: (data) => ({
-              url: '/password-reset/confirm/',
-              method: 'POST',
-              body: data,
+                url: '/password-reset/confirm/',
+                method: 'POST',
+                body: data,
             }),
-          }),
+        }),
 
         //   help & Support
         helpSupport: builder.mutation({
-            query:(data) =>({
+            query: (data) => ({
                 url: '/help&support/',
                 method: "POST",
                 body: data,
-                
+
             })
         }),
 
         //get packages
         getPackages: builder.query({
-            query: ()=> "/packages/"
+            query: () => "/packages/"
         }),
 
         // payment_checkout
         paymentActivation: builder.mutation({
-            query: (data) =>({
+            query: (data) => ({
                 url: "/checkout-session/",
                 method: "POST",
                 body: data
@@ -117,7 +117,41 @@ export const baseApi = createApi({
 
         //billinginfo
         billingInfo: builder.query({
-            query:()=> "/subscriptions/"
+            query: () => "/subscriptions/"
+        }),
+
+        //getting boticon/info
+        getBotInfo: builder.query({
+            query: () => "/models/",
+        }),
+
+        chatCreate: builder.mutation({
+            query: (data) => ({
+                url: "/chat/",
+                method: "POST",
+                body: data
+            })
+        }),
+
+        chatContinue: builder.mutation({
+            query: ({ chatID, data }) => ({
+                url: `/chat/${chatID}/`,
+                method: "POST",
+                body: data
+
+            })
+        }),
+
+        // get chat retrive by id
+        // retrivedChat : builder.query({
+        //     query: (retrivedID) => `/chat/${retrivedID}`
+        // })
+
+        retrivedChat: builder.mutation({
+            query: (retrivedID) => ({
+                url: `/chat/${retrivedID}/`,
+                method: "GET",
+            })
         })
 
 
@@ -146,5 +180,10 @@ export const {
     usePaymentActivationMutation,
 
     useBillingInfoQuery,
+
+    useGetBotInfoQuery,
+    useChatCreateMutation,
+    useChatContinueMutation,
+    useRetrivedChatMutation,
 
 } = baseApi

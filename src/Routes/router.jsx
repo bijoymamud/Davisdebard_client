@@ -16,6 +16,7 @@ import ChangePassSuccessFull from '../Pages/Login/ChangePassSuccessfull'
 import PaymentSuccess from "../Pages/ManageSubcription/PaymentSuccess";
 import PaymentCancle from "../Pages/ManageSubcription/PaymentCancle";
 import BillingInfo from "../Pages/BillingInfo/BillingInfo";
+import ChatInterface from "../Pages/Home/ChatInterface";
   
 export const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home/>
+          },
+            {
+                path: '/chat/:id',
+                element: <ChatInterface/>
           },
           {
             path: '/manageSubcription',
