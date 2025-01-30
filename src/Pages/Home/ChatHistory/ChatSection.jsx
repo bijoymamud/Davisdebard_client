@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Send, Plus, CircleHelp } from "lucide-react";
 import { useChatContinueMutation, useChatCreateMutation, useGetBotInfoQuery, useRetrivedChatMutation } from "../../redux/features/baseApi/baseApi";
-import { use } from "react";
-
-
-
-
-
-
-
-
+import { Link } from "react-router-dom";
 
 function ChatSection({ chatID }) {
 
@@ -146,10 +138,12 @@ function ChatSection({ chatID }) {
 
   return (
     <div className="min-h-screen bg-[#e1e4ed]">
-      <div className="w-full mx-auto px-4 py-6">
-        <div className="rounded-2xl p-6 mb-6 flex justify-between items-center">
+      <div className="w-full mx-auto px-4">
+        <div className="rounded-2xl mb-6 flex justify-between items-center">
           <div className="bg-[#431D5A] rounded-lg flex items-center text-xl">
-            <button className="w-[120px] py-3 text-white px-2">New Chat</button>
+            <Link
+            to="/"
+            className="w-[120px] py-3 text-white px-2">New Chat</Link>
             <Plus size={32} className="text-white pr-2" />
           </div>
 
@@ -203,7 +197,7 @@ function ChatSection({ chatID }) {
           </div>
         </div>
 
-        <div className="mb-6 max-w-7xl mx-auto flex flex-col mt-20 space-y-4 p-4">
+        <div className="mb-6 max-w-4xl mx-auto flex flex-col mt-20 space-y-4 p-4">
           {chatMessages.map((msg, index) => (
             <div
               key={index}

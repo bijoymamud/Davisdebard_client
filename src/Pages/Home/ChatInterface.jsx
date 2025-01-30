@@ -186,7 +186,9 @@ function ChatInterface({ onChatStart }) {
       <div className="w-full mx-auto px-4 py-6">
         <div className="rounded-2xl p-6 mb-6 flex justify-between items-center">
           <div className="bg-[#431D5A] rounded-lg flex items-center text-xl">
-            <button className="w-[120px] py-3 text-white px-2">New Chat</button>
+            <Link 
+            to="/"
+            className="w-[120px] py-3 text-white px-2">New Chat</Link>
             <Plus size={32} className="text-white pr-2" />
           </div>
 

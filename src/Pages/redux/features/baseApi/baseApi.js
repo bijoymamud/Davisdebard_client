@@ -155,8 +155,30 @@ export const baseApi = createApi({
         }), 
 
         chatHistory: builder.query({
-            query: ()=> "/chat-history/",
-        })
+            query: (result)=> "/chat-history/",
+            providesTags: (result) =>
+                result
+                  ? [...result.data.map(({ id }) => ({ type: "ChatHistory", id })), { type: "ChatHistory", id: "LIST" }]
+                  : [{ type: "ChatHistory", id: "LIST" }],
+        }), 
+
+        perticularChatDelete: builder.mutation({
+            query: (id) => ({
+              url: `/chat/${id}/`,
+              method: "DELETE", // Fixed typo
+            }),
+            invalidatesTags: (result, error, id) => [{ type: "ChatHistory", id }], // Invalidate cache
+          }),
+
+
+          deleteAllChats: builder.mutation({
+            query: ()=>({
+                url: "/chats/delete-all/", 
+                method: "DELETE"
+            }),
+            invalidatesTags: [{ type: "ChatHistory", id: "LIST" }],
+          }),
+          
 
 
 
@@ -190,5 +212,7 @@ export const {
     useChatContinueMutation,
     useRetrivedChatMutation,
     useChatHistoryQuery,
+    usePerticularChatDeleteMutation,
+    useDeleteAllChatsMutation,
 
 } = baseApi
