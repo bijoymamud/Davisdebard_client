@@ -1,51 +1,41 @@
-
-// // ----------------------perfect code without history---------------------
 import React, { useEffect, useState } from "react";
 import { Send, Plus, CircleHelp } from "lucide-react";
-import { RiChatHistoryLine } from "react-icons/ri";
-import { MdLogout, MdOutlineQuestionAnswer } from "react-icons/md";
-import { AiFillThunderbolt } from "react-icons/ai";
-import { FaRegUser } from "react-icons/fa";
-import { IoInvertMode } from "react-icons/io5";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { HiOutlineBars4 } from "react-icons/hi2";
-import {
-  useChatContinueMutation,
-  useChatCreateMutation,
-  useGetBotInfoQuery,
-  useLogOutUserMutation,
-  useRetrivedChatMutation,
-} from "../redux/features/baseApi/baseApi";
-import { LuLogIn } from "react-icons/lu";
-function ChatInterface({ onChatStart }) {
+import { useChatContinueMutation, useChatCreateMutation, useGetBotInfoQuery, useRetrivedChatMutation } from "../../redux/features/baseApi/baseApi";
+import { use } from "react";
 
-  const {id} = useParams();
+
+
+
+
+
+
+
+
+function ChatSection({ chatID }) {
 
   const [message, setMessage] = useState("");
   const [lastMessage, setLastMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [selectedBot, setSelectedBot] = useState(null);
   const [isThinking, setIsThinking] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data } = useGetBotInfoQuery();
   const [chatCreate] = useChatCreateMutation();
   const [chatContinue] = useChatContinueMutation();
   const [retrivedChat] = useRetrivedChatMutation();
 
   
-  let notFromHome = id !== undefined && id !== null;
-
+  
   const botItems = data?.data ?? [];
-  const [logOutUser] = useLogOutUserMutation();
+  
+  useEffect(()=>{
+    setChatMessages([])
+    setLastMessage("")
+  },[chatID])
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    setIsLoggedIn(!!token);
-  }, []);
-
-  useEffect(() => {
-    if (notFromHome && chatMessages.length === 0) {
-      retrivedChat(id)
+      if (chatMessages.length === 0) {
+      console.log(chatID);
+      retrivedChat(chatID)
         .unwrap()
         .then((response) => {
           const list = response?.data?.content ?? [];
@@ -63,9 +53,8 @@ function ChatInterface({ onChatStart }) {
           console.error("Error fetching chat:", error);
         });
     }
-  }, [id, notFromHome, chatMessages, retrivedChat]);
+  }, [chatID,chatMessages, retrivedChat]);
 
-  const navigate = useNavigate();
 
   const initialProcessMessage = async (allmessages) => {
     const nArray = [];
@@ -86,45 +75,19 @@ function ChatInterface({ onChatStart }) {
     setChatMessages(nArray);
   };
 
-  const handleLogOutuser = async () => {
-    const refresh_token = localStorage.getItem("refresh_token");
-
-    try {
-      const response = await logOutUser({ refresh_token }).unwrap();
-      localStorage.clear("access_token");
-      localStorage.clear("refresh_token");
-      setIsLoggedIn(false);
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout Error:", error);
-    }
-  };
 
   const handleBotResponse = async (bot, userMessage) => {
     setIsThinking(true);
 
     try {
-      if (onChatStart && (id === undefined || id === null)) {
-        // home initial chat block
-        const { data } = await chatCreate({
-          model_id: bot.id,
-          content: userMessage,
-        });
+      // continue messagting block
+      const { data } = await chatContinue({
+        chatID: chatID,
+        data: { model_id: bot.id, content: userMessage },
+      });
 
-        const botReply = data.data?.content ?? [];
-        onChatStart(data?.data);
-
-        setChatMessages((prev) => [...prev, botReply[1]]);
-      } else {
-        // continue messagting block
-        const { data } = await chatContinue({
-          chatID: id,
-          data: { model_id: bot.id, content: userMessage },
-        });
-
-        const botReply = data.data?.content ?? [];
-        initialProcessMessage(botReply);
-      }
+      const botReply = data.data?.content ?? [];
+      initialProcessMessage(botReply);
     } catch (error) {
       console.error("Error fetching bot response:", error);
       setChatMessages((prev) => [
@@ -214,106 +177,10 @@ function ChatInterface({ onChatStart }) {
           </div>
 
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className=" m-1">
-              <HiOutlineBars4 className="text-4xl" />
-            </div>
-
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[300px] p-2 shadow "
-            >
-              {isLoggedIn && (
-                <li>
-                  <Link
-                    to="/chatHistory"
-                    className="flex items-center gap-2 hover:bg-gray-200"
-                  >
-                    <RiChatHistoryLine className="text-xl" />
-                    <span className="text-lg font-semibold">Chat History</span>
-                  </Link>
-                </li>
-              )}
-
-              <li>
-                <Link to="/Support" className="hover:bg-gray-200">
-                  <CircleHelp size={20} />
-                  <span className="text-lg font-semibold">Support</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:bg-gray-200">
-                  <MdOutlineQuestionAnswer className="text-xl" />
-                  <span className="text-lg font-semibold">FAQ</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/manageSubcription" className="hover:bg-gray-200">
-                  <AiFillThunderbolt className="text-xl" />
-                  <span className="text-lg font-semibold">
-                    Manage Subscription
-                  </span>
-                </Link>
-              </li>
-
-              {isLoggedIn && (
-                <li>
-                  <Link to="/userProfile" className="hover:bg-gray-200">
-                    <FaRegUser className="text-xl" />
-                    <span className="text-lg font-semibold">Profile</span>
-                  </Link>
-                </li>
-              )}
-
-              <li>
-                <button className="hover:bg-gray-200">
-                  <IoInvertMode className="text-xl" />
-                  <span className="text-lg font-semibold">Light Mode</span>
-                </button>
-              </li>
-
-              {isLoggedIn ? (
-                <li>
-                  <button
-                    onClick={() =>
-                      document.getElementById("logout_modal").showModal()
-                    }
-                    className="flex items-center gap-2 hover:bg-gray-200"
-                  >
-                    <MdLogout className="text-xl" />
-                    <span className="text-lg font-semibold">Log out</span>
-                  </button>
-                </li>
-              ) : (
-                <li>
-                  <Link to="/login" className="flex items-center gap-2">
-                    <LuLogIn className="text-xl" />
-                    <span className="text-lg font-semibold">Login</span>
-                  </Link>
-                </li>
-              )}
-            </ul>
+          droopDown
           </div>
         </div>
 
-        <dialog id="logout_modal" className="modal">
-          <div className="modal-box">
-            <p className="py-4">Leave Use the Best AI?</p>
-            <div className="flex items-center justify-center gap-5">
-              <form method="dialog">
-                <button className="btn border-none bg-[#CDC7DB] hover:bg-[#CDC7DB] text-[#431D5A]">
-                  Cancel
-                </button>
-              </form>
-
-              <button
-                onClick={() => handleLogOutuser()}
-                className="btn bg-[#431D5A] hover:bg-[#431D5A] text-white"
-              >
-                Log Out
-              </button>
-            </div>
-          </div>
-        </dialog>
 
         <div className="relative md:ms-[105px]">
           <div className="relative bg-[#7B549333] rounded-xl flex items-center p-3 shadow-sm border border-purple-100 w-[685px] mx-auto">
@@ -390,4 +257,4 @@ function ChatInterface({ onChatStart }) {
   );
 }
 
-export default ChatInterface;
+export default ChatSection;

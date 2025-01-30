@@ -155,7 +155,7 @@ export const baseApi = createApi({
         }), 
 
         chatHistory: builder.query({
-            query: ()=> "/chat-history/"
+            query: ()=> "/chat-history/",
         })
 
 
