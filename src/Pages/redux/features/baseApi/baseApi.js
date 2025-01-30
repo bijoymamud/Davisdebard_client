@@ -152,6 +152,10 @@ export const baseApi = createApi({
                 url: `/chat/${retrivedID}/`,
                 method: "GET",
             })
+        }), 
+
+        chatHistory: builder.query({
+            query: ()=> "/chat-history/"
         })
 
 
@@ -185,5 +189,6 @@ export const {
     useChatCreateMutation,
     useChatContinueMutation,
     useRetrivedChatMutation,
+    
 
 } = baseApi
