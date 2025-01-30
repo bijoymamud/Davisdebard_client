@@ -189,6 +189,6 @@ export const {
     useChatCreateMutation,
     useChatContinueMutation,
     useRetrivedChatMutation,
-    
+    useChatHistoryQuery,
 
 } = baseApi

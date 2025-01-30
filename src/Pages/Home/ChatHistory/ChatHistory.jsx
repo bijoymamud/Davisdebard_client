@@ -1,49 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useChatHistoryQuery } from "../../redux/features/baseApi/baseApi";
+import { useSearchParams } from "react-router-dom";
 
 function ChatHistory() {
-  const [chatHistory, setChatHistory] = useState([]);
+  const { data, isLoading, error } = useChatHistoryQuery();
+  const history = data?.data ?? []; // Ensure history is always an array
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedId = searchParams.get("id"); // Get the chat ID from the URL query
+  const selectedChat = history.find((chat) => chat.id === selectedId); // Find selected chat
 
-  useEffect(() => {
-    const storedMessages = localStorage.getItem("chatHistory");
-    if (storedMessages) {
-      setChatHistory(JSON.parse(storedMessages));
-    }
-  }, []);
+  // Handle clicking a chat ID (update URL query)
+  const handleClick = (chatId) => {
+    setSearchParams({ id: chatId }); // Updates the URL dynamically (without navigating)
+  };
 
   return (
     <div className="min-h-screen bg-[#e1e4ed]">
       <div className="w-full mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold mb-6">Chat History</h1>
-        <div className="space-y-4">
-          {chatHistory.length > 0 ? (
-            chatHistory.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex items-start ${
-                  msg.type === "user" ? "justify-end" : ""
-                }`}
-              >
-                {msg.type === "bot" && (
-                  <img
-                    src={msg.img}
-                    alt="Bot Avatar"
-                    className="h-10 w-10 rounded-full object-cover mr-4"
-                  />
-                )}
-                <div
-                  className={`px-4 py-2 rounded-lg shadow-sm ${
-                    msg.type === "user"
-                      ? "bg-indigo-100 text-right"
-                      : "bg-gray-100 text-left"
-                  }`}
-                >
-                  {msg.text}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500">No chat history available.</p>
-          )}
+
+        {/* Loading & Error States */}
+        {isLoading && <p className="text-gray-500">Loading chat history...</p>}
+        {error && <p className="text-red-500">Error loading chat history.</p>}
+
+        {/* Flex Container for Chat IDs & Details */}
+        <div className="flex items-start gap-10 bg-green-100 p-4 rounded-lg">
+          {/* Left Section: Chat IDs */}
+          <div className="w-1/4 bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold mb-2">Select a Chat</h2>
+            {history.length > 0 ? (
+              <ul>
+                {history.map((chat) => (
+                  <li
+                    key={chat.id}
+                    className={`p-2 border-b last:border-none cursor-pointer hover:bg-gray-100 ${
+                      chat.id === selectedId ? "text-red-500 font-bold" : "text-blue-700"
+                    }`}
+                    onClick={() => handleClick(chat.id)}
+                  >
+                    {chat.id}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No chat history available.</p>
+            )}
+          </div>
+
+          {/* Right Section: Chat Details */}
+          <div className="w-3/4 bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold mb-2">Chat Details</h2>
+            {selectedChat ? (
+              <pre className="p-2 bg-gray-100 rounded-md">
+                {JSON.stringify(selectedChat, null, 2)}
+              </pre>
+            ) : (
+              <p className="text-gray-500">Click on a chat ID to view details.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

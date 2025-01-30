@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
             element: <ChatHistory/>
           }, 
           {
+            path: '/chatHistory/:id',
+            element: <ChatHistory/>
+          }, 
+          {
             path: "/helpSupportThank",
             element: <HelpSupportThank/>
           }, 
