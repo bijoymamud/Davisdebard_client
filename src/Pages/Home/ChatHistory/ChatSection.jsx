@@ -144,21 +144,20 @@ function ChatSection({ chatID }) {
 
   return (
     <div className="min-h-screen bg-[#e1e4ed]">
-      <div className="w-full mx-auto px-4">
+      <div className="w-full mx-auto px-4 pt-3">
         <div className="rounded-2xl mb-6 flex justify-between items-center">
-          <div className="bg-[#431D5A] rounded-lg flex items-center text-xl">
-            <Link
-            to="/"
-            className="w-[120px] py-3 text-white px-2">New Chat</Link>
-            <Plus size={32} className="text-white pr-2" />
+          <div className="bg-[#431D5A] rounded-lg flex items-center justify-center py-[5px]">
+            <Link to="/"
+            className="w-[100px] text-white ps-2">New Chat</Link>
+            <Plus size={20} className="text-white me-2" />
           </div>
 
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="flex gap-4 justify-center flex-wrap ms-5">
             {botItems.map((bot, index) => (
               <button
                 key={index}
                 onClick={() => handleBotSelection(bot)}
-                className={`w-40 flex items-center justify-between px-5 py-3 rounded-full ${
+                className={`w-40 flex items-center justify-between px-5 py-[5px] rounded-full ${
                   selectedBot?.name === bot.name
                     ? "bg-purple-100"
                     : "bg-gradient-to-r from-purple-50 to-indigo-50"
@@ -170,7 +169,7 @@ function ChatSection({ chatID }) {
                 <img
                   src={bot.icon}
                   alt={bot.name}
-                  className="h-8 object-contain rounded-lg"
+                  className="h-6 object-contain rounded-lg"
                 />
               </button>
             ))}
@@ -228,21 +227,21 @@ function ChatSection({ chatID }) {
 
 
         <div className="relative md:ms-[105px]">
-          <div className="relative bg-[#7B549333] rounded-xl flex items-center p-3 shadow-sm border border-purple-100 w-[685px] mx-auto">
+          <div className="relative bg-[#7B549333] rounded-xl flex items-center px-2 py-[5px] shadow-sm border border-purple-100 w-[685px] mx-auto">
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
-              className="w-full bg-transparent outline-none text-[#431D5A] font-medium placeholder-gray-400 px-2"
+              className="w-full bg-transparent outline-none py-2 text-[#431D5A] font-medium placeholder-gray-400 px-2"
             />
             <div className="flex items-center space-x-8">
               <button
                 onClick={handleSendMessage}
-                className="bg-[#431D5A] hover:bg-black/80 text-white p-2.5 rounded-lg transition-colors duration-200 flex items-center justify-center shadow-sm"
+                className="bg-[#431D5A] hover:bg-black/80 text-white p-2 rounded-lg transition-colors duration-200 flex items-center justify-center shadow-sm"
               >
-                <Send size={20} />
+                <Send size={16} />
               </button>
             </div>
           </div>
@@ -280,7 +279,7 @@ function ChatSection({ chatID }) {
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                   alt="User Avatar"
-                  className="h-10 w-10 rounded-full object-cover ml-4"
+                  className="h-8 w-8 rounded-full object-cover ml-4"
                 />
               )}
             </div>
