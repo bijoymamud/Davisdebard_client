@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Send, Plus, CircleHelp } from "lucide-react";
 import { useChatContinueMutation, useChatCreateMutation, useGetBotInfoQuery, useRetrivedChatMutation } from "../../redux/features/baseApi/baseApi";
 import { Link } from "react-router-dom";
+import { MdOutlineQuestionAnswer } from "react-icons/md";
+import { IoInvertMode } from "react-icons/io5";
+import { FaRegUser } from "react-icons/fa";
+import { AiFillThunderbolt } from "react-icons/ai";
+import { HiOutlineBars4 } from "react-icons/hi2";
 
 function ChatSection({ chatID }) {
 
@@ -14,6 +19,7 @@ function ChatSection({ chatID }) {
   const [chatCreate] = useChatCreateMutation();
   const [chatContinue] = useChatContinueMutation();
   const [retrivedChat] = useRetrivedChatMutation();
+ 
 
   
   
@@ -170,9 +176,54 @@ function ChatSection({ chatID }) {
             ))}
           </div>
 
-          <div className="dropdown dropdown-end">
-          droopDown
-          </div>
+         <div className="dropdown dropdown-end">
+                     <div tabIndex={0} role="button" className=" m-1">
+                       <HiOutlineBars4 className="text-4xl" />
+                     </div>
+         
+                     <ul
+                       tabIndex={0}
+                       className="dropdown-content menu bg-base-100 rounded-box z-[1] w-[300px] p-2 shadow "
+                     >
+         
+                       <li>
+                         <Link to="/Support" className="hover:bg-gray-200">
+                           <CircleHelp size={20} />
+                           <span className="text-lg font-semibold">Support</span>
+                         </Link>
+                       </li>
+                       <li>
+                         <Link to="/faq" className="hover:bg-gray-200">
+                           <MdOutlineQuestionAnswer className="text-xl" />
+                           <span className="text-lg font-semibold">FAQ</span>
+                         </Link>
+                       </li>
+                       <li>
+                         <Link to="/manageSubcription" className="hover:bg-gray-200">
+                           <AiFillThunderbolt className="text-xl" />
+                           <span className="text-lg font-semibold">
+                             Manage Subscription
+                           </span>
+                         </Link>
+                       </li>
+         
+                      
+                         <li>
+                           <Link to="/userProfile" className="hover:bg-gray-200">
+                             <FaRegUser className="text-xl" />
+                             <span className="text-lg font-semibold">Profile</span>
+                           </Link>
+                         </li>
+                      
+         
+                       <li>
+                         <button className="hover:bg-gray-200">
+                           <IoInvertMode className="text-xl" />
+                           <span className="text-lg font-semibold">Light Mode</span>
+                         </button>
+                       </li>
+                     </ul>
+                   </div>
         </div>
 
 
@@ -252,3 +303,5 @@ function ChatSection({ chatID }) {
 }
 
 export default ChatSection;
+
+

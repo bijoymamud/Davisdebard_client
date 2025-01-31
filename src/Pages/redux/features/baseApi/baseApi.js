@@ -178,6 +178,16 @@ export const baseApi = createApi({
             }),
             invalidatesTags: [{ type: "ChatHistory", id: "LIST" }],
           }),
+
+          //edit chatHistory title
+          editChatTitle: builder.mutation({
+            query: ({id, newTitle})=>({
+                url:`/chat/${id}/`, 
+                method: "PATCH",
+                body: {title: newTitle}
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: "ChatHistory", id }],
+          }),
           
 
 
@@ -214,5 +224,6 @@ export const {
     useChatHistoryQuery,
     usePerticularChatDeleteMutation,
     useDeleteAllChatsMutation,
+    useEditChatTitleMutation,
 
 } = baseApi
