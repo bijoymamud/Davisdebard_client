@@ -416,7 +416,7 @@ function ChatInterface({ onChatStart }) {
 
               <div className="flex flex-col">
                 <div
-                  className={`px-4 py-2 rounded-lg shadow-sm w-10/12 ${
+                  className={`px-4 py-2 rounded-lg shadow-sm w-10/12 w-full ${
                     msg.role === "user"
                       ? "bg-blue-500 text-right text-white"
                       : "bg-gray-100 text-left"

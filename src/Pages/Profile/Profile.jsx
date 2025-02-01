@@ -21,7 +21,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const { data, isLoading, error } = usePerticularUserQuery();
   const [updateUserInfo] = useUpdateUserInfoMutation();
-
   const [profileImage, setProfileImage] = useState(""); // State for image preview
   const [imageFile, setImageFile] = useState(null); // State for the actual file
   const [showPassword, setShowPassword] = useState(false);
@@ -64,7 +63,8 @@ const Profile = () => {
   }
 
   // Extract user data
-  const user = data?.data;
+  const user = data?.data
+  console.log(user)
 
   // Handle image upload
   const handleImageChange = (event) => {
