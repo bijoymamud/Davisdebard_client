@@ -100,6 +100,7 @@ const Profile = () => {
 
       // Send data to API
       const response = await updateUserInfo({ id: user.id, data: formDataToSend });
+      refe
 
       if (response?.error) {
         toast.error("Failed to update profile. Please try again!", {

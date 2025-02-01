@@ -43,7 +43,8 @@ export const baseApi = createApi({
                 url: `/users/${id}/`,
                 method: "PATCH",
                 body: data
-            })
+            }),
+            invalidatesTags: ["data"], 
         }),
 
         //logout user
