@@ -80,46 +80,79 @@ const Profile = () => {
   };
 
   // Handle form submission
-  const onSubmit = async (formData) => {
-    try {
-      // Validate image file
+  // const onSubmit = async (formData) => {
+  //   try {
+  //     // Validate image file
     
 
-      // Remove password fields if not provided
-      if (!formData.password?.length && !formData.confirmPassword?.length) {
-        delete formData.password; // Remove password from formData
-        delete formData.confirmPassword; // Remove confirmPassword from formData
-      }
+  //     // Remove password fields if not provided
+  //     if (!formData.password?.length && !formData.confirmPassword?.length) {
+  //       delete formData.password; // Remove password from formData
+  //       delete formData.confirmPassword; // Remove confirmPassword from formData
+  //     }
 
-      // Prepare data for submission
+  //     // Prepare data for submission
+  //     const formDataToSend = new FormData();
+  //     formDataToSend.append("name", formData.name);
+  //     formDataToSend.append("email", formData.email);
+  //     if (formData.password) formDataToSend.append("password", formData.password);
+  //     if (imageFile) formDataToSend.append("image", imageFile);
+
+  //     // Send data to API
+  //     const response = await updateUserInfo({ id: user.id, data: formDataToSend });
+  //     refe
+
+  //     if (response?.error) {
+  //       toast.error("Failed to update profile. Please try again!", {
+  //         position: "top-right",
+  //       });
+  //     } else {
+  //       toast.success("Profile updated successfully!", {
+  //         position: "top-right",
+  //       });
+  //     }
+
+  //     reset()
+  //   } catch (error) {
+  //     console.error("Update error", error);
+  //   }
+  // };
+
+  const onSubmit = async (formData) => {
+    try {
+      if (!formData.password?.length && !formData.confirmPassword?.length) {
+        delete formData.password;
+        delete formData.confirmPassword;
+      }
+  
       const formDataToSend = new FormData();
       formDataToSend.append("name", formData.name);
       formDataToSend.append("email", formData.email);
       if (formData.password) formDataToSend.append("password", formData.password);
       if (imageFile) formDataToSend.append("image", imageFile);
-
-      // Send data to API
+  
       const response = await updateUserInfo({ id: user.id, data: formDataToSend });
-      refe
-
+  
       if (response?.error) {
-        toast.error("Failed to update profile. Please try again!", {
+        toast.error("❌ Failed to update profile. Please try again!", {
           position: "top-right",
         });
       } else {
         toast.success("Profile updated successfully!", {
           position: "top-right",
         });
+  
+        refetch(); // Soft refresh: fetch updated user data
       }
-
-      reset()
+  
+      reset();
     } catch (error) {
       console.error("Update error", error);
-      toast.error("An error occurred. Please try again later.", {
-        position: "top-right",
-      });
+     
     }
   };
+  
+
 
   return (
     <section className="bg-[#e1e4ed]">
