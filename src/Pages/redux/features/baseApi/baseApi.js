@@ -3,15 +3,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.10.111:8000/api/v1',
+        baseUrl: 'http://192.168.10.111:8080/api/v1',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("access_token");
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
             return headers;
-        }
+        },
+        
     }),
+    tagTypes: ["history", "Chat"],
+
     endpoints: (builder) => ({
 
         //create user
@@ -131,7 +134,8 @@ export const baseApi = createApi({
                 url: "/chat/",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags:['history']
         }),
 
         chatContinue: builder.mutation({
@@ -157,10 +161,7 @@ export const baseApi = createApi({
 
         chatHistory: builder.query({
             query: (result)=> "/chat-history/",
-            providesTags: (result) =>
-                result
-                  ? [...result.data.map(({ id }) => ({ type: "ChatHistory", id })), { type: "ChatHistory", id: "LIST" }]
-                  : [{ type: "ChatHistory", id: "LIST" }],
+            providesTags: ['history']
         }), 
 
         perticularChatDelete: builder.mutation({
@@ -189,10 +190,7 @@ export const baseApi = createApi({
             }),
             invalidatesTags: (result, error, { id }) => [{ type: "ChatHistory", id }],
           }),
-          
-
-
-
+        
     })
 })
 

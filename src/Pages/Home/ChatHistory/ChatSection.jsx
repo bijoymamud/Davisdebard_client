@@ -126,16 +126,19 @@ import {
   useGetBotInfoQuery, 
   useRetrivedChatMutation 
 } from "../../redux/features/baseApi/baseApi";
+import useUserInfo from "../../../Hooks/useUserInfo";
 
 function ChatSection({ chatID }) {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const [selectedBot, setSelectedBot] = useState(null);
-  const [isThinking, setIsThinking] = useState(false);
+  // const [selectedBot, setSelectedBot] = useState(null);
+  // const [isThinking, setIsThinking] = useState(false);
 
-  const { data } = useGetBotInfoQuery();
-  const [chatContinue] = useChatContinueMutation();
+  // const { data } = useGetBotInfoQuery();
+  // const [chatContinue] = useChatContinueMutation();
   const [retrivedChat] = useRetrivedChatMutation();
+  const {isLoading:userLoading, user, error:userError} = useUserInfo();
+  console.log(user)
 
   const chatContainerRef = useRef(null);
   const observer = useRef();
@@ -172,12 +175,7 @@ function ChatSection({ chatID }) {
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
+
 
   // Infinite Scroll - Load more messages when reaching top
   const chatContainerObserver = useCallback((node) => {
@@ -214,26 +212,29 @@ function ChatSection({ chatID }) {
         {/* Chat Box */}
         <div 
           ref={chatContainerRef} 
-          className="h-[90vh] overflow-y-auto flex flex-col p-4 border border-gray-300 rounded-lg custom-scrollbar" 
+          className="md:h-screen h-screen overflow-y-auto flex flex-col p-4 border border-gray-300 rounded-lg custom-scrollbar" 
           onScroll={handleScroll}
         >
           <div ref={chatContainerObserver}></div> 
 
-          {chatMessages.map((msg, index) => (
-            <div key={index} className={`flex py-5 items-start ${msg.role === "user" ? "justify-end" : ""}`}>
+        <div className="mt-10 md:mt-0">
+        {chatMessages.map((msg, index) => (
+            <div key={index} className={`flex md:py-5 py-2 items-start ${msg.role === "user" ? "justify-end" : ""}`}>
               {msg.role === "ai" && (
                 <img src={msg.model.icon} alt="Bot Avatar" className="h-8 w-8 rounded-full object-cover mr-4" />
               )}
               <div className="flex flex-col">
-                <div className={`px-4 py-2 space-y-2 rounded-lg shadow-sm ${msg.role === "user" ? "bg-blue-500 text-right text-white" : "bg-gray-100 text-left"}`}>
+                <div className={`px-4 py-2 space-y-2 rounded-lg shadow-sm ${msg.role === "user" ? "bg-gray-400 text-left text-white" : "bg-gray-100 text-left"}`}>
                   {msg.content}
                 </div>
               </div>
               {msg.role === "user" && (
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-4" />
+                (userLoading || userError != null || !user.image)?<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-4" />:
+                <img src={user.image} alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-4" />
               )}
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>
