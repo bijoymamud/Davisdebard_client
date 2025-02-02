@@ -19,6 +19,7 @@ const ForgotPassword = () => {
    try {
     const response = forgetPassword(data.email).unwrap();
     console.log(response);
+    
     localStorage.setItem("email", data.email);
     navigate("/OTPVerification")
 

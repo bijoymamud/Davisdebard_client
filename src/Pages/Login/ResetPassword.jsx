@@ -34,11 +34,11 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-700">Create new password</h2>
-        <p className="mt-2 text-sm text-center text-gray-500">
-        Your new password must be unique from those previously used
+    <div className="flex items-center justify-center min-h-screen bg-[#e1e4ed]">
+      <div className="w-full max-w-md p-8  rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-start text-gray-700">Create new password</h2>
+        <p className="mt-2 text-sm text-start text-gray-500">
+        Your new password must be unique from those previously used.
         </p>
         {errorMessage && (
           <div className="mt-4 p-2 text-sm text-red-600 bg-red-100 border border-red-400 rounded">
@@ -97,7 +97,7 @@ const ResetPassword = () => {
             type="submit"
             disabled={isLoading}
             className={`w-full py-3 text-white font-medium rounded-lg focus:outline-none ${
-              isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+              isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-[#431D5A] hover:bg-[#431D5A]"
             }`}
           >
             {isLoading ? "Resetting..." : "Reset Password"}
