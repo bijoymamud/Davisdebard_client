@@ -709,7 +709,7 @@ function ChatHistory() {
                   <div tabIndex={0} role="button" className="m-1">
                     <BiDotsHorizontalRounded className="text-2xl" />
                   </div>
-                  <ul tabIndex={0} className="dropdown-content border-none menu bg-[#48225f] z-[50] w-28 shadow-sm border-2 shadow-black/50 mt-2">
+                  <ul tabIndex={0} className="dropdown-content border-none menu bg-[#48225f] z-[50] w-32 shadow-sm border-2 shadow-black/50 mt-2">
                   <button
                       onClick={() => handleEditClick(chat.id, chat.title)}
                       className="flex items-center space-x-2 mb-1 cursor-pointer hover:bg-[#734a8d] rounded-sm px-2 py-1"
