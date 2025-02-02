@@ -17,11 +17,13 @@ import PaymentSuccess from "../Pages/ManageSubcription/PaymentSuccess";
 import PaymentCancle from "../Pages/ManageSubcription/PaymentCancle";
 import BillingInfo from "../Pages/BillingInfo/BillingInfo";
 import ChatInterface from "../Pages/Home/ChatInterface";
+import Error from "../Pages/Error/Error";
   
 export const router = createBrowserRouter([
     {
       path: "/",
         element: <Main />,
+        errorElement: <Error />,
         children: [
             {
                 path: '/',
@@ -98,5 +100,10 @@ export const router = createBrowserRouter([
     {
       path: "/changePassSuccessfull", 
       element: <ChangePassSuccessFull/>
-    }
+    },
+    {
+      path: "*",
+      element: <Error />, 
+    },
   ]);
+

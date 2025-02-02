@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { 
   useChatContinueMutation, 
@@ -48,6 +47,26 @@ function ChatSection({ chatID }) {
     } finally {
       isFetchingRef.current = false;
     }
+  };
+
+
+  const initialProcessMessage = async (allmessages) => {
+    const nArray = [];
+    allmessages.forEach((element) => {
+      if (element.role == "user") {
+        const question = nArray
+          .slice()
+          .reverse()
+          .find((e) => e.role == "user");
+        if (!(question !== undefined && question.content === element.content)) {
+          // when no same question found in array;
+          nArray.push(element);
+        }
+      } else {
+        nArray.push(element);
+      }
+    });
+    setChatMessages(nArray);
   };
 
 
