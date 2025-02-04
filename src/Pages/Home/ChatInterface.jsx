@@ -20,7 +20,8 @@ import { RichTextDisplay } from "../RichText/RichTextDisplay";
 import { GrNotes } from "react-icons/gr";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
-
+import useCheckUserLogin from "../../Hooks/useCheckUserLogin";
+import { delay } from "../../utility/utility";
 function ChatInterface({ onChatStart }) {
   const { id } = useParams();
 
@@ -34,6 +35,7 @@ function ChatInterface({ onChatStart }) {
   const [chatCreate] = useChatCreateMutation();
   const [chatContinue] = useChatContinueMutation();
   const [retrivedChat] = useRetrivedChatMutation();
+  const {isUser} = useCheckUserLogin()
 
 
   const { isLoading: userLoading, user, error: userError } = useUserInfo();
@@ -160,6 +162,14 @@ function ChatInterface({ onChatStart }) {
       toast.error("Message cannot be empty!");
       return;
     }
+    if (!isUser) {
+
+      toast.error("You have to login first!");
+      await delay(1500);
+      navigate("/login");
+      
+      return;
+    }
 
     if (!selectedBot) {
       toast.error("Please select a bot first!");
@@ -257,14 +267,16 @@ function ChatInterface({ onChatStart }) {
                   <span className="text-base font-semibold">Privacy Policy</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/manageSubcription" className="hover:bg-gray-200">
-                  <AiFillThunderbolt className="text-xl" />
-                  <span className="text-base font-semibold">
-                    Manage Subscriptions
-                  </span>
-                </Link>
-              </li>
+             {isLoggedIn && ( 
+               <li>
+               <Link to="/manageSubcription" className="hover:bg-gray-200">
+                 <AiFillThunderbolt className="text-xl" />
+                 <span className="text-base font-semibold">
+                   Manage Subscriptions
+                 </span>
+               </Link>
+             </li>
+             )}
 
               {isLoggedIn && (
                 <li>
@@ -380,14 +392,16 @@ function ChatInterface({ onChatStart }) {
                   <span className="text-base font-semibold">Privacy Policy</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/manageSubcription" className="hover:bg-gray-200">
-                  <AiFillThunderbolt className="text-xl" />
-                  <span className="text-base font-semibold">
-                    Manage Subscriptions
-                  </span>
-                </Link>
-              </li>
+              {isLoggedIn && ( 
+               <li>
+               <Link to="/manageSubcription" className="hover:bg-gray-200">
+                 <AiFillThunderbolt className="text-xl" />
+                 <span className="text-base font-semibold">
+                   Manage Subscriptions
+                 </span>
+               </Link>
+             </li>
+             )}
 
               {isLoggedIn && (
                 <li>
