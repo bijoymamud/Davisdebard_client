@@ -6,10 +6,10 @@ import {
   useRetrivedChatMutation 
 } from "../../redux/features/baseApi/baseApi";
 import useUserInfo from "../../../Hooks/useUserInfo";
+import { RichTextDisplay } from "../../RichText/RichTextDisplay";
 
 function ChatSection({ chatID }) {
   const [chatMessages, setChatMessages] = useState([]);
-
   const [retrivedChat] = useRetrivedChatMutation();
   const {isLoading:userLoading, user, error:userError} = useUserInfo();
   console.log(user)
@@ -101,33 +101,45 @@ function ChatSection({ chatID }) {
   }, [chatMessages]);
 
   return (
-    <div className="h-screen bg-[#e1e4ed] flex items-center justify-center">
+    <div className="h-screen bg-[#e1e4ed] flex items-center">
       <div className="md:w-full mx-auto h-screen">
         {/* Chat Box */}
         <div 
           ref={chatContainerRef} 
-          className="md:h-screen h-screen overflow-y-auto flex flex-col p-4 border border-gray-300 rounded-lg custom-scrollbar" 
+          className="md:h-screen h-screen overflow-y-auto flex flex-col md:p-4 p-2  rounded-lg custom-scrollbar" 
           onScroll={handleScroll}
         >
           <div ref={chatContainerObserver}></div> 
 
         <div className="mt-10 md:mt-0">
-        {chatMessages.map((msg, index) => (
-            <div key={index} className={`flex py-2 items-start ${msg.role === "user" ? "justify-end" : ""}`}>
-              {msg.role === "ai" && (
-                <img src={msg.model.icon} alt="Bot Avatar" className="h-8 w-8 rounded-full object-cover mr-2" />
-              )}
-              <div className="flex flex-col">
-                <div className={`px-4 py-2 text-sm md:text-base rounded-lg shadow-sm ${msg.role === "user" ? "bg-gray-400 text-left text-white" : "bg-gray-100 text-left"}`}>
-                  {msg.content}
-                </div>
-              </div>
-              {msg.role === "user" && (
-                (userLoading || userError != null || !user.image)?<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-4" />:
-                <img src={user.image} alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-4" />
-              )}
-            </div>
-          ))}
+      
+{chatMessages.map((msg, index) => (
+  <div key={index} className={`flex py-2 items-start ${msg.role === "user" ? "justify-end" : ""}`}>
+  
+    {msg.role === "ai" && (
+      <img src={msg.model.icon} alt="Bot Avatar" className="h-8 w-8 rounded-full object-cover mr-2" />
+    )}
+    
+  
+    <div className={`flex flex-col ${msg.role !== 'user' ? "pr-10" : "pl-12"}`}>
+      <div className={`px-4 py-2 text-sm md:text-xs rounded-lg shadow-sm
+          ${msg.role === "user" ? "bg-gray-400 text-white text-left" : "bg-gray-100 text-left"} 
+           break-words `}
+      >
+     <RichTextDisplay content={msg.content} />
+      </div>
+    </div>
+
+ 
+    {msg.role === "user" && (
+      (userLoading || userError != null || !user.image) ? 
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar" className="h-8 w-8 rounded-full object-cover" /> :
+        <img src={user.image} alt="User Avatar" className="h-8 w-8 rounded-full object-cover ml-2" />
+    )}
+  </div>
+))}
+
+
         </div>
         </div>
       </div>

@@ -1,80 +1,201 @@
+// import React from "react";
+// import { useBillingInfoQuery, useGetPackagesQuery, usePaymentActivationMutation } from "../redux/features/baseApi/baseApi";
+// import { useNavigate } from "react-router-dom";
+// import { FaCheck } from "react-icons/fa"; // ✅ Import Tick Mark Icon
+// import { ArrowLeft, ChevronLeft } from "lucide-react"; // Add back icon from Lucide
+
+// const ManageSubscription = () => {
+//   const { data, isLoading, error } = useGetPackagesQuery();
+//    const {data:billinInfo} = useBillingInfoQuery();
+//   const [paymentActivation] = usePaymentActivationMutation();
+//   const navigate = useNavigate();
+//   const activatedPack = billinInfo?.data?.package?.name;
+//   console.log(activatedPack);
+
+//   const handleSubscription = async (stripe_id) => {
+//     try {
+//       const response = await paymentActivation({ stripe_price_id: stripe_id }).unwrap();
+//       window.location.href = response.data;
+//     } catch (error) {
+//       console.error("Error on subscription:", error);
+//     }
+//   };
+
+//   return (
+//   <section className=" bg-[#e1e4ed]">
+
+
+//    <div className="pt-10">
+//         <button
+//           onClick={() => navigate(-1)}  
+//           className="flex text-[#431D5A] hover:bg-[#431D5A] hover:text-white border border-[#431D5A] px-2 py-2 rounded-md md:ms-10 ms-5 mx-auto"
+//         >
+//           <ChevronLeft size={28} />
+//           <h2 className="uppercase text-lg font-medium pr-2">Return</h2>
+//         </button>
+//       </div>
+
+//       <div className=" min-h-screen flex items-center justify-center py-6">
+//       <div className="mx-auto w-full md:w-3/4 lg:w-2/3 space-y-6 px-6">
+        
+//         {/* Back Button */}
+
+//         <h1 className="text-3xl font-bold text-gray-800 text-center">Subscribe Today!</h1>
+//         <p className="text-gray-600 text-center font-semibold space-y-4 mb-10">
+//           Manage your subscription plan, upgrade, or cancel as needed. Choose a plan or view your current subscription details below.
+//         </p>
+
+//         {/* Render Subscription Plans */}
+//         <div className="md:flex justify-center md:gap-6 mx-auto">
+//           {data?.data.map((plan) => (
+//             <div
+//               key={plan.id}
+//               className="bg-white shadow-md flex flex-col p-6 rounded-md mb-10 "
+//             >
+//               {/* Card Content */}
+//               <div className="text-center mb-6">
+//                 <h2 className="text-4xl font-semibold text-gray-800">{plan.name}</h2>
+//                 <p className="text-base mt-2 font-medium text-black mb-4">Price: ${plan.price}</p>
+
+//                 {/* Features List with Tick Marks ✅ */}
+//                 <ul className="text-sm text-gray-600 mb-4 space-y-2">
+//                   {plan.features.map((feature, index) => (
+//                     <li key={index} className="flex items-center space-x-2">
+//                       <FaCheck className="text-green-500" /> {/* ✅ Tick Mark */}
+//                       <span>{feature}</span>
+//                     </li>
+//                   ))}
+//                 </ul>
+//               </div>
+
+//               {/* Card Button */}
+//               <div className="flex justify-center">
+//                 <button
+//                   onClick={() => handleSubscription(plan.stripe_price_id)}
+//                   className="w-full py-2 px-4 bg-[#431D5A] text-white font-medium rounded-full hover:bg-[#2d103f] transition-colors duration-200"
+//                 >
+//                   Buy Now
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   </section>
+//   );
+// };
+
+// export default ManageSubscription;
+
+
 import React from "react";
-import { useGetPackagesQuery, usePaymentActivationMutation } from "../redux/features/baseApi/baseApi";
+import { useBillingInfoQuery, useGetPackagesQuery, usePaymentActivationMutation } from "../redux/features/baseApi/baseApi";
 import { useNavigate } from "react-router-dom";
+import { FaCheck } from "react-icons/fa"; // ✅ Import Tick Mark Icon
+import { ChevronLeft } from "lucide-react"; // Add back icon from Lucide
 
 const ManageSubscription = () => {
   const { data, isLoading, error } = useGetPackagesQuery();
-   const [paymentActivation] = usePaymentActivationMutation();
+  const { data: billingInfo } = useBillingInfoQuery();
+  const [paymentActivation] = usePaymentActivationMutation();
   const navigate = useNavigate();
 
+  const activatedPack = billingInfo?.data?.package?.name;
+  const expireDate = billingInfo?.data?.expire_date;
+  
 
-  console.log("Data:", data);
-  console.log("IsLoading:", isLoading);
-  console.log("Error:", error);
-
-  const handleSubcription = async (stripe_id)=>{
-    console.log(stripe_id)
-    
+  // Handle Subscription Process
+  const handleSubscription = async (stripe_id) => {
     try {
-      const response = await paymentActivation({stripe_price_id:stripe_id}).unwrap();
-      console.log(response);
-
-      // navigate(response.data)
+      const response = await paymentActivation({ stripe_price_id: stripe_id }).unwrap();
       window.location.href = response.data;
-      
     } catch (error) {
-      console.error("Error on subcription is:", error)
+      console.error("Error on subscription:", error);
     }
-  }
-
+  };
 
   return (
-    <section className="min-h-screen bg-[#e1e4ed] flex items-center justify-center">
-      <div className="mx-auto md:w-2/3 space-y-3">
-        <h1 className="text-3xl font-bold text-gray-800 text-center">
-        Subscribe Today!
-        </h1>
-        <p className="text-gray-600 text-center font-semibold space-y-10 mb-10 pb-10">
-          Manage your subscription plan, upgrade, or cancel as needed. Choose a
-          plan or view your current subscription details below.
-        </p>
+    <section className="bg-[#e1e4ed]">
+      <div className="md:pt-10 pt-5 pb-10">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex text-[#431D5A] hover:bg-[#431D5A] hover:text-white border border-[#431D5A] px-2 py-2 rounded-md md:ms-10 ms-5 mx-auto"
+        >
+          <ChevronLeft size={28} />
+          <h2 className="uppercase text-lg font-medium pr-2">Return</h2>
+        </button>
+      </div>
 
-        {/* Render Subscription Plans */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5 md:px-0 ">
-          {data?.data.map((plan) => (
-            <div
-              key={plan.id}
-              className="rounded-none bg-white shadow-md flex flex-col justify-between"
-            >
-              {/* Card Content */}
-              <div className="p-6 pt-8 ">
-                <h2 className="card-title text-gray-800 mb-2">{plan.name}</h2>
-                {/* <p>Id: {plan.stripe_price_id}</p> */}
-                <p className="md:text-base font-medium text-black mb-5 ">Price: ${plan.price}</p>
-                <ul className="text-sm text-gray-600 mb-4">
-                  {plan.features.map((feature, index) => (
-                    <li key={index}>- {feature}</li>
-                  ))}
-                </ul>
-              </div>
+      <div className="min-h-screen flex items-center justify-center py-6">
+        <div className="mx-auto w-full md:w-3/4 lg:w-2/3 space-y-6 px-6">
+          <h1 className="text-3xl font-bold text-gray-800 text-center">Subscribe Today!</h1>
+          <p className="text-gray-600 text-center font-semibold space-y-4 mb-10">
+            Manage your subscription plan, upgrade, or cancel as needed. Choose a plan or view your current subscription details below.
+          </p>
 
-              {/* Card Button */}
-              <div className="card-actions p-6">
-                <button 
-                onClick={()=>handleSubcription(plan.stripe_price_id)}
-                className="btn hover:bg-[#431D5A]  bg-purple-900 text-white border-none text-base w-full rounded-full shadow-lg shadow-gray-400">
-                 Buy Now
-                </button>
+          {/* Render Subscription Plans */}
+          <div className="md:flex justify-center md:gap-6 mx-auto">
+            {data?.data.map((plan) => (
+              <div key={plan.id} className="bg-white shadow-md flex flex-col p-6 rounded-md mb-10 md:py-16">
+                {/* Card Content */}
+                <div className="text-center mb-6">
+                  <h2 className="text-4xl font-semibold text-gray-800">{plan.name}</h2>
+                  <p className="text-base mt-2 font-medium text-black mb-4">Price: ${plan.price} / <span className="capitalize">{plan.interval}</span></p>
+
+                  {/* Features List with Tick Marks ✅ */}
+                  <ul className="text-sm text-gray-600 mb-4 space-y-2">
+                    {plan.features.map((feature, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <FaCheck className="text-green-500" /> {/* ✅ Tick Mark */}
+                        <span className="text-start">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+           
+
+<div className="flex justify-center">
+  {activatedPack && activatedPack === plan.name ? (
+    <div className="w-full flex flex-col items-center">
+      {/* Disabled Button for Already Activated Plan */}
+      <button
+        disabled
+        className="w-full py-2 px-4 bg-gray-400 text-white font-medium rounded-full cursor-not-allowed"
+      >
+        Already Activated
+      </button>
+
+      {/* Show Expiry Date for the Active Plan */}
+      <p className="mt-2 text-sm text-gray-600">
+        Expiry Date:{" "}
+        <span className="font-semibold text-[#431D5A]">
+          {expireDate ? new Date(expireDate).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }) : "N/A"}
+        </span>
+      </p>
+    </div>
+  ) : (
+    <button
+      onClick={() => handleSubscription(plan.stripe_price_id)}
+      className="w-full py-2 px-4 bg-[#431D5A] text-white font-medium rounded-full hover:bg-[#2d103f] transition-colors duration-200"
+    >
+      Buy Now
+    </button>
+  )}
+</div>
+
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-
-       
       </div>
     </section>
   );
 };
 
 export default ManageSubscription;
-

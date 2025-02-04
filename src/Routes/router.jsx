@@ -18,6 +18,8 @@ import PaymentCancle from "../Pages/ManageSubcription/PaymentCancle";
 import BillingInfo from "../Pages/BillingInfo/BillingInfo";
 import ChatInterface from "../Pages/Home/ChatInterface";
 import Error from "../Pages/Error/Error";
+import Terms from "../Pages/TermsCondition/Terms";
+import Policy from "../Pages/Policy/Policy";
   
 export const router = createBrowserRouter([
     {
@@ -38,11 +40,11 @@ export const router = createBrowserRouter([
             element: <ManageSubcription/>
           },
           {
-            path: "/paymentSuccesspage",
+            path: "/paymentSuccess",
             element: <PaymentSuccess/>
           },
           {
-            path: "/paymentCanclepage",
+            path: "/paymentCancle",
             element: <PaymentCancle/>
           },
           {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
           {
             path: '/faq',
             element: <Faq/>
+          },
+          {
+            path: '/terms',
+            element: <Terms/>
+          },
+          {
+            path: '/policy',
+            element: <Policy/>
           },
         
           {

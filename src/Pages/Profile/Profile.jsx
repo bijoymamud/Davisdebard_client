@@ -1,5 +1,3 @@
-
-
 import {
   Camera,
   ChevronLeft,
@@ -12,7 +10,7 @@ import {
 import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { usePerticularUserQuery, useUpdateUserInfoMutation } from "../redux/features/baseApi/baseApi";
+import { useBillingInfoQuery, usePerticularUserQuery, useUpdateUserInfoMutation } from "../redux/features/baseApi/baseApi";
 import useHandleUnauthorized from "../../Hooks/useHandleUnauthorized";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const navigate = useNavigate();
   const { data, isLoading, error } = usePerticularUserQuery();
+  const {data:billinInfo} = useBillingInfoQuery();
+  
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const [profileImage, setProfileImage] = useState(""); // State for image preview
   const [imageFile, setImageFile] = useState(null); // State for the actual file
@@ -28,6 +28,8 @@ const Profile = () => {
   const [editableName, setEditableName] = useState(false); // State to toggle name edit mode
 
   const fileInputRef = useRef(null); // Ref for file input
+  const activatedPack = billinInfo?.data?.package
+
 
   // React Hook Form
   const {
@@ -79,45 +81,6 @@ const Profile = () => {
     }
   };
 
-  // Handle form submission
-  // const onSubmit = async (formData) => {
-  //   try {
-  //     // Validate image file
-    
-
-  //     // Remove password fields if not provided
-  //     if (!formData.password?.length && !formData.confirmPassword?.length) {
-  //       delete formData.password; // Remove password from formData
-  //       delete formData.confirmPassword; // Remove confirmPassword from formData
-  //     }
-
-  //     // Prepare data for submission
-  //     const formDataToSend = new FormData();
-  //     formDataToSend.append("name", formData.name);
-  //     formDataToSend.append("email", formData.email);
-  //     if (formData.password) formDataToSend.append("password", formData.password);
-  //     if (imageFile) formDataToSend.append("image", imageFile);
-
-  //     // Send data to API
-  //     const response = await updateUserInfo({ id: user.id, data: formDataToSend });
-  //     refe
-
-  //     if (response?.error) {
-  //       toast.error("Failed to update profile. Please try again!", {
-  //         position: "top-right",
-  //       });
-  //     } else {
-  //       toast.success("Profile updated successfully!", {
-  //         position: "top-right",
-  //       });
-  //     }
-
-  //     reset()
-  //   } catch (error) {
-  //     console.error("Update error", error);
-  //   }
-  // };
-
   const onSubmit = async (formData) => {
     try {
       if (!formData.password?.length && !formData.confirmPassword?.length) {
@@ -159,7 +122,7 @@ const Profile = () => {
       <ToastContainer /> 
       <div className="pt-10">
         <button
-          onClick={() => navigate(-1)}  page
+          onClick={() => navigate(-1)}  
           className="flex text-[#431D5A] hover:bg-[#431D5A] hover:text-white border border-[#431D5A] px-2 py-2 rounded-md md:ms-10 ms-5 mx-auto"
         >
           <ChevronLeft size={28} />
@@ -252,7 +215,7 @@ const Profile = () => {
                     <div className="flex items-center rounded-md shadow p-2 border border-[#431D5A]">
                       <input
                         type="text"
-                        value="Free"
+                        value={activatedPack?.name || "No Package Activated"}
                         className="flex-1 font-medium bg-transparent outline-none px-4 text-black text-base py-3"
                         readOnly
                       />
