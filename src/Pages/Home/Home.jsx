@@ -4,9 +4,9 @@ import ChatInterface from "./ChatInterface"
 
 const Home = () => {
   const navigate = useNavigate()
- const onChatStart = (chatData)=>{
+ const onChatStart = ({chatData, ai})=>{
   if (chatData !== undefined && chatData !== null && chatData.id !== null) {
-    navigate(`/chat/${chatData.id}`, chatData)
+    navigate(`/chat/${chatData.id}?ai=${ai}`, chatData)
   }
     
  }
