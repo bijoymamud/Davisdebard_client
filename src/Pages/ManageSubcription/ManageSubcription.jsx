@@ -165,7 +165,7 @@ const ManageSubscription = () => {
       </li>
       <li className="flex items-center space-x-2">
         <FaCheck className="text-green-500" />
-        <span>Up to 500 MB storage space.</span>
+        <span className="font-semibold">Up to 500 MB storage space.</span>
       </li>
     </>
   ) : plan.name === "Standard" ? (

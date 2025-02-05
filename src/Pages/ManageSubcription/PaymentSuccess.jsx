@@ -30,9 +30,19 @@ const PaymentSuccess = () => {
         </h1>
 
         {/* Message */}
-        <p className="text-gray-600 mb-8">
-          Your payment has been processed successfully. Thank you for your purchase!
+        <p className="text-gray-600 ">
+          Your payment has been processed successfully.
         </p>
+        <p className="text-gray-600 mb-5">
+        Thank you for your purchase!
+        </p>
+        <p className="text-gray-600 ">
+        Please cheaaack your email.
+        </p>
+        <p className="text-gray-600 mb-8">
+        A confirmation has been sent.
+        </p>
+        
 
         {/* Button */}
         <button
