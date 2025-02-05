@@ -295,6 +295,9 @@ function ChatSection({ chatID }) {
             className="md:h-screen h-screen overflow-y-auto flex flex-col md:p-4 p-2 rounded-lg custom-scrollbar"
             onScroll={handleScroll}
           >
+            <div className="h-10  p-6">
+
+            </div>
             <div ref={chatContainerObserver}></div>
             <div className="mt-10 md:mt-0">
               {chatMessages.map((msg, index) => (

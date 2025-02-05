@@ -647,7 +647,7 @@ function ChatHistory() {
       </div>
 
       {/* Floating Button for Home */}
-      <div className="fixed top-1 right-2 md:right-40  z-50">
+      <div className="fixed top-1 right-4 md:right-44  z-50">
         <button
           onClick={() => navigate("/")}
           className="p-2 bg-[#431D5A] flex items-center text-white rounded-full shadow-lg"

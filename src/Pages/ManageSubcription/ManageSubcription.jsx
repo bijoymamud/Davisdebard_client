@@ -144,14 +144,63 @@ const ManageSubscription = () => {
                   <p className="text-base mt-2 font-medium text-black mb-4">Price: ${plan.price} / <span className="capitalize">{plan.interval}</span></p>
 
                   {/* Features List with Tick Marks ✅ */}
-                  <ul className="text-sm text-gray-600 mb-4 space-y-2">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center space-x-2">
-                        <FaCheck className="text-green-500" /> {/* ✅ Tick Mark */}
-                        <span className="text-start">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <ul className="text-sm text-black mb-4 space-y-2">
+  {plan.name === "Basic" ? (
+    <>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span>Access to core features.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">First 7 days free.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">Can cancel within 7 days at no charge.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">Basic email support with 24-48 hour response time.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span>Up to 500 MB storage space.</span>
+      </li>
+    </>
+  ) : plan.name === "Standard" ? (
+    <>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span>Access to core features.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">First 7 days free.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">Can cancel within 7 days at no charge.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">Standard email support with 12-24 hour response time.</span>
+      </li>
+      <li className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span className="font-semibold">Up to 1 GB storage space.</span>
+      </li>
+    </>
+  ) : (
+    plan.features.map((feature, index) => (
+      <li key={index} className="flex items-center space-x-2">
+        <FaCheck className="text-green-500" />
+        <span>{feature}</span>
+      </li>
+    ))
+  )}
+</ul>
+
                 </div>
 
            
@@ -169,7 +218,7 @@ const ManageSubscription = () => {
 
       {/* Show Expiry Date for the Active Plan */}
       <p className="mt-2 text-sm text-gray-600">
-        Expiry Date:{" "}
+        Expiration Date:{" "}
         <span className="font-semibold text-[#431D5A]">
           {expireDate ? new Date(expireDate).toLocaleDateString("en-US", {
             year: "numeric",

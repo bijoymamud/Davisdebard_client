@@ -861,7 +861,7 @@ function ChatInterface({ onChatStart }) {
 
           <div className="dropdown dropdown-end md:hidden">
             <div tabIndex={0} role="button" className=" m-1">
-              <HiOutlineBars4 className="md:text-4xl text-2xl font-semibold" />
+              <HiOutlineBars4 className="md:text-5xl text-4xl font-semibold" />
             </div>
 
             <ul
