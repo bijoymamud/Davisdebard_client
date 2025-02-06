@@ -27,12 +27,15 @@ const PaymentCancle = () => {
 
         {/* Title */}
         <h1 className="text-2xl md:text-3xl font-bold text-red-600 mb-4">
-          Payment Cancled
+          Payment Canceled
         </h1>
 
         {/* Message */}
         <p className="text-gray-600 mb-8">
-          Your payment has been successfully Cancle. Please try again later!
+          Your payment has been successfully Canceled. 
+        </p>
+        <p className="text-gray-600 mb-8">
+          Please email support with any questions.
         </p>
 
         {/* Button */}

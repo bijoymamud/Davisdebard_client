@@ -149,7 +149,7 @@ const ManageSubscription = () => {
     <>
       <li className="flex items-center space-x-2">
         <FaCheck className="text-green-500" />
-        <span>Access to core features.</span>
+        <span className="font-semibold">Access to core features.</span>
       </li>
       <li className="flex items-center space-x-2">
         <FaCheck className="text-green-500" />
@@ -172,7 +172,7 @@ const ManageSubscription = () => {
     <>
       <li className="flex items-center space-x-2">
         <FaCheck className="text-green-500" />
-        <span>Access to core features.</span>
+        <span className="font-semibold">Access to core features.</span>
       </li>
       <li className="flex items-center space-x-2">
         <FaCheck className="text-green-500" />
