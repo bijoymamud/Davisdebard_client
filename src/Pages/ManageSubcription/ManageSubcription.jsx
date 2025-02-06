@@ -141,7 +141,7 @@ const ManageSubscription = () => {
                 {/* Card Content */}
                 <div className="text-center mb-6">
                   <h2 className="text-4xl font-semibold text-gray-800">{plan.name}</h2>
-                  <p className="text-base mt-2 font-medium text-black mb-4">Price: ${plan.price} / <span className="capitalize">{plan.interval}</span></p>
+                  <p className="text-base mt-2 font-medium text-black mb-10">Price: ${plan.price} / <span className="capitalize">{plan.interval}</span></p>
 
                   {/* Features List with Tick Marks ✅ */}
                   <ul className="text-sm text-black mb-4 space-y-2">

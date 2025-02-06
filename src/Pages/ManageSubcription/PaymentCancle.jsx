@@ -12,7 +12,7 @@ const PaymentCancle = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-6">
-      <div className=" rounded-lg text-center p-10 max-w-md w-full">
+      <div className=" rounded-lg text-center p-10 max-w-lg w-full">
         {/* Icon Section with Layered Background */}
         <div className="relative w-40 h-40 mx-auto mb-6">
           {/* Green Outer Circle */}

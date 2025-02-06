@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
             element: <PaymentSuccess/>
           },
           {
-            path: "/paymentCancle",
+            path: "/paymentCancel",
             element: <PaymentCancle/>
           },
           {
