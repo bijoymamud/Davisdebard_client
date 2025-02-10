@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const navigate = useNavigate();
   const { data, isLoading, error } = usePerticularUserQuery();
+  console.log(data)
   const {data:billinInfo} = useBillingInfoQuery();
   
   const [updateUserInfo] = useUpdateUserInfoMutation();
@@ -301,6 +302,7 @@ const Profile = () => {
         </div>
       </div>
     </section>
+ 
   );
 };
 

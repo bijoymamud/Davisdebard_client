@@ -66,7 +66,7 @@ function ChatInterface({ onChatStart }) {
   useEffect(() => {
     const ai = searchParams.get("ai");
     if(notFromHome && botItems.length>0 && !selectedBot){
-      botItems.filter((bot) => bot.name.toLowerCase() === ai).map((bot) => setSelectedBot(bot));
+      botItems.filter((bot) => bot.name.toLowerCase() === ai.toLowerCase()).map((bot) => setSelectedBot(bot));
     }
     if(!notFromHome && botItems.length>0 && !selectedBot){
       botItems.filter((bot) => bot.name.toLowerCase() === 'google').map((bot) => setSelectedBot(bot));
@@ -97,6 +97,18 @@ function ChatInterface({ onChatStart }) {
   }, [id, notFromHome, chatMessages, retrivedChat]);
 
   const navigate = useNavigate();
+
+
+
+  //chatbot input change
+
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+    if (lastMessage.length > 0) {
+      setLastMessage("");
+      
+    }
+  }
 
   const initialProcessMessage = async (allmessages) => {
     const nArray = [];
@@ -232,9 +244,9 @@ function ChatInterface({ onChatStart }) {
 
   const handleBotSelection = async (bot) => {
     if (selectedBot?.name === bot.name) {
-      setSelectedBot(null);
-      setLastMessage("");
-      setMessage("");
+      // setSelectedBot(null);
+      // setLastMessage("");
+      // setMessage("");
     } else {
       setSelectedBot(bot);
 
@@ -275,7 +287,7 @@ function ChatInterface({ onChatStart }) {
 
   <div className="dropdown dropdown-end md:hidden">
     <div tabIndex={0} role="button" className=" m-1">
-      <HiOutlineBars4 className="md:text-5xl text-4xl font-semibold" />
+      <HiOutlineBars4 className="md:text-7xl text-4xl font-semibold" />
     </div>
 
     <ul
@@ -399,7 +411,7 @@ function ChatInterface({ onChatStart }) {
       {/* Right: Dropdown Menu */}
       <div className="dropdown dropdown-end hidden md:flex">
             <div tabIndex={0} role="button" className=" m-1">
-              <HiOutlineBars4 className="md:text-4xl text-2xl font-semibold" />
+              <HiOutlineBars4 className="md:text-7xl text-2xl font-semibold" />
             </div>
 
             <ul
@@ -565,12 +577,14 @@ function ChatInterface({ onChatStart }) {
           </div>
         </dialog>
 
-        <div className="relative md:ms-[95px] px-2 md:px-0 mb-10 md:mb-0">
-          <div className="relative bg-[#7B549333] rounded-xl flex items-center md:p-3 p-2 shadow-sm border border-purple-100 md:w-[750px] mx-auto">
+        <div className="relative md:ms-[58px] px-2 md:px-0 mb-10 md:mb-0">
+          <div className="relative bg-[#7B549333] rounded-xl flex items-center md:p-3 p-2 shadow-sm border border-purple-100 md:w-[790px] mx-auto">
             <input
               type="text"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              // onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => handleInputChange(e)}
+              
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               className="w-full bg-transparent outline-none text-[#431D5A] font-medium placeholder-gray-400 px-2"

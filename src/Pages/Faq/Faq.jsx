@@ -252,7 +252,7 @@ const Faq = () => {
         </button>
       </div>
 
-      <div className="flex justify-end mt-6 md:w-5/6">
+      <div className=" md:w-1/2 flex justify-start mt-6 mx-auto">
         <select
           className="select select-bordered md:w-[200px] w-[100px] mr-3 md:mr-0"
           value={filter}

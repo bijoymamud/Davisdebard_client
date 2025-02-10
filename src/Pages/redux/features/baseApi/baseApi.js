@@ -11,7 +11,7 @@ export const baseApi = createApi({
             }
             return headers;
         },
-        
+
     }),
     tagTypes: ["history", "Chat"],
 
@@ -37,7 +37,7 @@ export const baseApi = createApi({
 
         //perticular logged user
         perticularUser: builder.query({
-            query: () => "/users/"
+            query: () => "/users/profile/"
         }),
 
         //perticular update user
@@ -47,7 +47,7 @@ export const baseApi = createApi({
                 method: "PATCH",
                 body: data
             }),
-       
+
         }),
 
         //logout user
@@ -135,7 +135,7 @@ export const baseApi = createApi({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags:['history']
+            invalidatesTags: ['history']
         }),
 
         chatContinue: builder.mutation({
@@ -157,40 +157,40 @@ export const baseApi = createApi({
                 url: `/chat/${retrivedID}/`,
                 method: "GET",
             })
-        }), 
+        }),
 
         chatHistory: builder.query({
-            query: (result)=> "/chat-history/",
+            query: (result) => "/chat-history/",
             providesTags: ['history']
-        }), 
+        }),
 
         perticularChatDelete: builder.mutation({
             query: (id) => ({
-              url: `/chat/${id}/`,
-              method: "DELETE", // Fixed typo
+                url: `/chat/${id}/`,
+                method: "DELETE", // Fixed typo
             }),
             invalidatesTags: (result, error, id) => [{ type: "ChatHistory", id }], // Invalidate cache
-          }),
+        }),
 
 
-          deleteAllChats: builder.mutation({
-            query: ()=>({
-                url: "/chats/delete-all/", 
+        deleteAllChats: builder.mutation({
+            query: () => ({
+                url: "/chats/delete-all/",
                 method: "DELETE"
             }),
             invalidatesTags: [{ type: "ChatHistory", id: "LIST" }],
-          }),
+        }),
 
-          //edit chatHistory title
-          editChatTitle: builder.mutation({
-            query: ({id, newTitle})=>({
-                url:`/chat/${id}/`, 
+        //edit chatHistory title
+        editChatTitle: builder.mutation({
+            query: ({ id, newTitle }) => ({
+                url: `/chat/${id}/`,
                 method: "PATCH",
-                body: {title: newTitle}
+                body: { title: newTitle }
             }),
             invalidatesTags: (result, error, { id }) => [{ type: "ChatHistory", id }],
-          }),
-        
+        }),
+
     })
 })
 
